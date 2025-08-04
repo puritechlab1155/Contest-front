@@ -1,0 +1,189 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSerifKR';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NotoSerifKR.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #222222;
+  font-family: 'Pretendard';
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+body {
+  background: #FEFEFE;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+a:focus {
+  outline: none;
+}
+button {
+  cursor: pointer;
+  border: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+@supports (-webkit-appearance:none) {
+input {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+display: none;
+}
+
+input::-webkit-contacts-auto-fill-button {
+visibility: hidden !important;
+display: none !important;
+pointer-events: none !important;
+position: absolute !important;
+right: 0 !important;
+}
+
+input::-webkit-credentials-auto-fill-button {
+visibility: hidden !important;
+display: none !important;
+pointer-events: none !important;
+position: absolute !important;
+right: 0 !important;
+}
+select {
+  appearance: none;
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+
+.color-picker::-webkit-color-swatch-wrapper {
+padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+border: 2px solid #eee;
+border-radius: 50%;
+}
+
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+
+img, input, select, textarea, button, label {
+  vertical-align: middle;
+}
+img, fieldset, abbr {
+  border: 0;
+}
+/* 공통 버튼 스타일 */
+.btn01 {
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.3s;
+  padding: 15px 30px;
+}
+
+.btn01.black {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.btn01.white {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-30 {
+  margin-top: 30px;
+}
+.f-18 {
+  font-size: 18px;
+}
+.mt-70 {
+  margin-top: 70px;
+}
+br.mob, br.smob {
+  display: none;
+}
+
+
+.section-title {
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 120%;
+}
+.pink-title {
+  color: #B31C45;
+  font-size: 30px;
+  line-height: 120%;
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.title-point{
+  font-family: 'NotoSerifKR';
+}

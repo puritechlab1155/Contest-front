@@ -1,0 +1,134 @@
+.inner {
+  width: 100%;
+  max-width: 1248px;
+  margin: 0 auto;
+}
+
+
+/* 서브공통 */
+.sub {
+
+}
+.subContent {
+  padding: 70px 20px 110px 20px;
+}
+.pointColor01 {
+  color: #F4313F !important;
+}
+.desc h2.pointColor02 {
+  color: #B31C45;
+  font-size: 38px;
+}   
+.sub .subNav.inner {
+  padding: 0 20px;
+  padding-top: clamp(20px, 5vw, 70px);
+}
+.sub .subTitle-box {
+  background-image: url(../img/common/subBg.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 350px;
+  background-size: cover;
+}
+.sub .subTitle-box .subTitle {
+  font-size: 46px;
+  text-align: center;
+  padding-top: 100px;
+}
+.sub .flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+}
+.sub .bgBox {
+  background-color: #FAFAFA;
+  border: 1px solid #EFEFEF;
+  border-radius: 10px;
+  /* padding: 70px 74px; */
+  padding: clamp(20px, 5vw, 70px) clamp(30px, 6vw, 74px);
+  flex: 1;
+}
+.sub .bgBox-title {
+  color: #B31C45;
+  border-bottom: 1px solid #B31C45;
+  margin-bottom: 20px;
+  line-height: 2;
+  font-size: 24px;
+}
+.sub .sub-radius {
+  border-radius: clamp(20px, 5vw, 70px) clamp(20px, 5vw, 70px) 0 0;
+  background-color: #FEFEFE;
+  margin-top: -150px;
+  width: 100%;
+}
+/* 네비게이션 */
+.sub .subNav {
+  padding-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.sub .subNav span {
+  color: #ACACAC;
+  font-weight: 500;
+  font-size: 16px;
+}
+.sub .subNav img {
+
+}
+.sub .caution ul {
+  padding-left: 0; 
+}
+.sub .caution li {
+  position: relative;
+  padding-left: 15px;
+  color: #FF5972;
+}
+.sub .caution li::before {
+  content: '❖';
+  position: absolute;
+  left: 0;
+  color: #FF5972; /* 원하는 색상 */
+  font-size: 16px;
+}
+@media (max-width: 768px) {
+  br.mob {
+    display: block;
+  }
+  .subContent {
+    padding: 30px 20px 50px 20px;
+  }
+  .sub .subTitle-box {
+    background-image: url(../img/common/subBgMob.jpg);
+    min-height: 210px;
+  }
+  .sub .subTitle-box .subTitle {
+    font-size: 36px;
+    padding-top: 50px;
+  }
+  .sub .subNav span {
+    font-size: 14px;
+  }
+  .sub .subNav {
+    gap: 15px;
+  }
+  .sub .flex-container {
+    gap: 20px;
+    flex-direction: column;
+  }
+  .sub .contents-container.mt-70 {
+    margin-top: 30px;
+  }
+  .sub .bgBox-title {
+    font-size: 20px;
+  }
+  .sub .sub-radius {
+    margin-top: -70px;
+  }
+}
+@media (max-width: 480px) {
+  br.smob {
+    display: block;
+  }
+}
