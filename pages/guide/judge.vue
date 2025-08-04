@@ -136,38 +136,45 @@
 
 <style scoped>
 
-.sub .bgBox table {
-border: 1px solid #ACACAC;
-background: #FEFEFE;
-text-align: center;
-border-collapse: collapse;
-width: 100%;
-}
-.sub .bgBox table th {
-background: #FFF5F5;
-padding: 10px;
-font-size: 18px;
-font-weight: 400;
-}
-.sub .bgBox table td {
-border-top: 1px solid #ACACAC;
-padding: 10px;
-font-size: 16px;
-}
-.sub .bgBox table .border-r {
-border-right: 1px solid #ACACAC;
-}
-.sub .awards {
-
-}
-@media (max-width: 768px) {
-.sub .bgBox table td {
-  line-height: 1.2;
-  font-size: 14px;
-}
-.sub .bgBox table th {
-  font-size: 16px;
-}
+  .sub .bgBox table {
+    border: 1px solid #ACACAC;
+    background: #FEFEFE;
+    text-align: center;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .sub .bgBox table th {
+    background: #FFF5F5;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .sub .bgBox table td {
+    border-top: 1px solid #ACACAC;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .sub .bgBox table .border-r {
+    border-right: 1px solid #ACACAC;
+  }
+  @media (max-width: 768px) {
+  .sub .bgBox table td {
+    line-height: 1.2;
+    font-size: 14px;
+  }
+  .sub .bgBox table th {
+    font-size: 16px;
+  }
+  .desc h2.pointColor02 {
+      color: #B31C45;
+      font-size: 24px;
+  }
+  .f-18 {
+    font-size: 16px;
+  }
+  .f-18.mt-20 {
+    margin-top: 10px;
+  }
 }
 
 </style> 
