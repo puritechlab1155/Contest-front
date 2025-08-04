@@ -59,7 +59,7 @@
 .sub .sub-radius {
   border-radius: clamp(20px, 5vw, 70px) clamp(20px, 5vw, 70px) 0 0;
   background-color: #FEFEFE;
-  margin-top: -150px;
+  margin-top: -100px;
   width: 100%;
 }
 /* 네비게이션 */
