@@ -1,26 +1,25 @@
 <template>
-  <!-- 컨텐츠 섹션 -->
-  <main class="sub">
-    <!-- 타이틀 배경 -->
-    <div class="subTitle-box">        
-      <h1 class="subTitle">모집요강</h1>
-    </div>
-
-    <div class="sub-radius">
-
-      <!-- 네비게이션 -->
-      <div class="subNav inner">
-        <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
-        <span>공모 요강</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
-        <span class="pointColor01">모집요강</span>
+    <!-- 컨텐츠 섹션 -->
+    <main class="sub">
+      <!-- 타이틀 배경 -->
+      <div class="subTitle-box">        
+        <h1 class="subTitle">공모전 소개</h1>
       </div>
-
-      <!-- 컨텐츠  -->
-      <section class="awards subContent inner">
-        
-        <div class="contents-container">
+  
+      <div class="sub-radius">
+  
+        <!-- 네비게이션 -->
+        <div class="subNav inner">
+          <span>홈</span>
+          <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+          <span>소개</span>
+          <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+          <span class="pointColor01">공모전 소개</span>
+        </div>
+  
+        <!-- 컨텐츠  -->
+        <section class="awards subContent inner">  
+          <div class="contents-container">
             <div class="flex-container">
               <div class="bgBox left">
                 <h3 class="bgBox-title">학생의 잠재력을 깨우는 시작</h3>
@@ -52,55 +51,32 @@
               </div>
             </div>
 
-          </div> 
-
-        <div class="contents-container mt-70">
-        </div>      
-      </section>
-
-    </div>
-
-
-  </main>
-</template>
-
-<script setup>
-</script>
-
-<style scoped>
-
-.sub .bgBox table {
-border: 1px solid #ACACAC;
-background: #FEFEFE;
-text-align: center;
-border-collapse: collapse;
-width: 100%;
-}
-.sub .bgBox table th {
-background: #FFF5F5;
-padding: 10px;
-font-size: 18px;
-font-weight: 400;
-}
-.sub .bgBox table td {
-border-top: 1px solid #ACACAC;
-padding: 10px;
-font-size: 16px;
-}
-.sub .bgBox table .border-r {
-border-right: 1px solid #ACACAC;
-}
-.sub .awards {
-
-}
-@media (max-width: 768px) {
-.sub .bgBox table td {
-  line-height: 1.2;
-  font-size: 14px;
-}
-.sub .bgBox table th {
-  font-size: 16px;
-}
-}
-
-</style> 
+          </div>      
+        </section>
+  
+      </div>
+  
+  
+    </main>
+  </template>
+  
+  <script setup>
+  </script>
+  
+  <style scoped>
+    .mt-50 {
+        margin-top: 50px;
+    }
+    @media (max-width: 768px) {
+    .f-18 {
+      font-size: 16px;
+    }
+    .f-18.mt-20 {
+      margin-top: 10px;
+    }
+    .mt-50 {
+        margin-top: 40px;
+    }
+  }
+  
+  </style> 
