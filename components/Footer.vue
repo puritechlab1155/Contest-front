@@ -56,7 +56,7 @@
 }
 .footer .wrap01 {
   border: 1px solid #d9d9d9;
-  border-top-left-radius: clamp(10px, 5vw, 1000px);
+  border-top-left-radius: clamp(10px, 5vw, 1000px); 
   border-top-right-radius: clamp(10px, 5vw, 1000px);
   border-bottom-left-radius: clamp(10px, 5vw, 1000px);
   border-bottom-right-radius: clamp(10px, 5vw, 1000px);
@@ -150,7 +150,7 @@
 }
 .footer .text-a {
   color: #5D5D5D;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .footer .text-link {

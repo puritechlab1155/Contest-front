@@ -4,6 +4,9 @@
   margin: 0 auto;
 }
 
+.gradient {
+  background: linear-gradient(90deg, #F78DA7, #DA2C91, #FDAF75);
+}
 
 /* 서브공통 */
 .sub {
@@ -49,6 +52,8 @@
   padding: clamp(20px, 5vw, 70px) clamp(30px, 6vw, 74px);
   flex: 1;
 }
+
+
 .sub .bgBox-title {
   color: #B31C45;
   border-bottom: 1px solid #B31C45;

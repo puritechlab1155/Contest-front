@@ -433,7 +433,7 @@ onBeforeUnmount(() => {
   border-radius: 50px;
   position: absolute;
   left: 0;
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 .header .offcanvas-open .ham:nth-child(1) {
   top: 0;
@@ -442,7 +442,7 @@ onBeforeUnmount(() => {
   top: 40%;
 }
 .header .offcanvas-open .ham:nth-child(3) {
-  top: 85%;
+  top: 80%;
 }
 .header .offcanvas-open.active .ham {
   background: #222;
