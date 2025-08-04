@@ -56,10 +56,10 @@
 }
 .footer .wrap01 {
   border: 1px solid #d9d9d9;
-  border-top-left-radius: 1000px;
-  border-bottom-left-radius: 1000px;
-  border-top-right-radius: 1000px;
-  border-bottom-right-radius: 1000px;
+  border-top-left-radius: clamp(10px, 5vw, 1000px);
+  border-top-right-radius: clamp(10px, 5vw, 1000px);
+  border-bottom-left-radius: clamp(10px, 5vw, 1000px);
+  border-bottom-right-radius: clamp(10px, 5vw, 1000px);
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
