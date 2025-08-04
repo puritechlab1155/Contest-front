@@ -9,12 +9,16 @@
       </div>
       <div class="group-b">
         <span class="label">후원</span>
-        <span class="divider">|</span> <span class="mob-br"></span>
-        <span class="text">한국환경공단</span> <span class="mob-br2"></span>
-        <span class="text">한국환경산업기술원</span> <span class="mob-br"></span>
-        <span class="text mt-5">(사)한국예술문화단체총연합회</span> <span class="mob-br2"></span>
-        <span class="text">(사)한국전업미술가협회</span>
-        <span class="text">(사)한국예술작가협회</span>
+        <div class="box-a">
+          <span class="divider">|</span> 
+          <span class="text">한국환경공단</span> 
+          <span class="text">한국환경산업기술원</span>
+        </div>
+        <div class="box-b">
+          <span class="text mt-5">(사)한국예술문화단체총연합회</span>
+          <span class="text">(사)한국전업미술가협회</span>
+          <span class="text">(사)한국예술작가협회</span>        
+        </div>
       </div>
     </div>
     <div class="wrap02">
@@ -72,6 +76,13 @@
   align-items: center;
   gap: 10px;
   color: #5D5D5D;
+}
+.footer .wrap01 .group-b .box-a,
+.footer .wrap01 .group-b .box-b{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .footer .wrap01 .group-a .label,
@@ -152,6 +163,12 @@
 @media (max-width: 1110px) {
   .footer .wrap02 {
     gap: 30px;
+  }
+}
+
+@media (max-width: 820px) {
+  .footer .wrap01 .box-b {
+    margin-left: 45px;
   }
 }
 
