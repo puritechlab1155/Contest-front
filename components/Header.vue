@@ -4,7 +4,7 @@
     <div class="header-inner">
       <!-- 로고 -->
       <div class="logo">
-        <img class="logo-img" src="../assets/img/logo.png" alt="로고" />
+        <img class="logo-img" src="../assets/img/common/logo.png" alt="로고" />
       </div>
       <div class="right pc_display">
         <!-- 메뉴 -->
