@@ -105,10 +105,11 @@
           </div>
           <div class="btn-wrap">
             <BtnBlack
-              :label="'다음'"
               :disabled="!allChecked"
               @click="handleNext"
-            />
+            >
+            <span>다음</span>
+            </BtnBlack>
           </div>
         </div>
       </section>

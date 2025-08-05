@@ -128,12 +128,40 @@ img, fieldset, abbr {
 }
 /* 공통 버튼 스타일 */
 .btn01 {
+  position: relative;
   font-size: 18px;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: 0.3s;
-  padding: 15px 30px;
+  transition: background 0.3s ease;
+  padding: 10px 30px;
+  overflow: hidden;
 }
+.btn01::before {
+  content: '';
+  position: absolute;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  width: 0;
+  height: 0;
+  background: #EFEFEF;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  transition: width 0.5s ease, height 0.5s ease, top 0s, left 0s;
+  z-index: 0;
+  pointer-events: none;
+}
+.btn01:not(:disabled):hover::before {
+  width: 300px;
+  height: 300px;
+}
+.btn01:not(:disabled):hover {
+  color: #fff;
+}
+.btn01 span, .btn01 {
+  position: relative;
+  z-index: 1;
+}
+
 
 .btn01.black {
   background-color: #222;

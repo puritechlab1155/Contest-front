@@ -1,12 +1,12 @@
 <!-- components/CustomButton.vue -->
 <template>
-    <button
-      class="btn01 black custom"
-      :disabled="disabled"
-      @click="$emit('click')"
-    >
-      {{ label }}
-    </button>
+  <button
+    class="btn01 black custom"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
+    <slot />
+  </button>
 </template>
 
 <script setup>
