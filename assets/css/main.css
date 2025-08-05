@@ -18,7 +18,7 @@
 .pointColor01 {
   color: #F4313F !important;
 }
-.desc h2.pointColor02 {
+.desc h2.pointColor02, .desc h3.pointColor02 {
   color: #B31C45;
   font-size: 38px;
 }   
@@ -83,9 +83,6 @@
   font-weight: 500;
   font-size: 16px;
 }
-.sub .subNav img {
-
-}
 .sub .caution ul {
   padding-left: 0; 
 }
@@ -102,6 +99,26 @@
   color: #FF5972; /* 원하는 색상 */
   font-size: 16px;
 }
+
+
+/*  타이틀 반원 스타일 (참조: /guide/recruit) */
+/* .sub .title-earea {
+  position: relative;
+} */
+.sub .halfCircle {
+  position: relative;
+  left: 65%;
+  top: 70px;
+}
+.sub .recruit-title {
+  font-size: 56px;
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+
 @media (max-width: 768px) {
   br.mob {
     display: block;

@@ -19,40 +19,146 @@
 
       <!-- 컨텐츠  -->
       <section class="awards subContent inner">
-        
-        <div class="contents-container">
-            <div class="flex-container">
-              <div class="bgBox left">
-                <h3 class="bgBox-title">학생의 잠재력을 깨우는 시작</h3>
-                <p class="f-18 mt-20">
-                    미래를 열어가는 학생들의 여정에, 뉴스피릿이 함께합니다
-                </p>
-                <h3 class="bgBox-title mt-50">자기 발견과 미래 설계</h3>
-                <p class="f-18 mt-20">
-                    학생 개개인의 자기 발견과 미래 설계를 응원합니다.<br/>
-                    생각을 표현하고, 미래를 설계하는 힘을 길러줍니다.
-                </p>
-                <h3 class="bgBox-title mt-50">함께 여는 미래</h3>
-                <p class="f-18 mt-20">
-                    함께 그리는 더 나은 내일,<br/>
-                    미래를 열어가는 창의 인재 육성에 앞장섭니다.
-                </p>
+        <!-- 상단 영역 -->
+        <div class="flex-container" v-if="data">
+          <!-- 왼쪽 영역: 포스터 -->
+          <div class="poster-box">
+            <img :src="data.posterImg" alt="포스터 이미지" />
+          </div>
+
+          <!-- 오른쪽 영역: 텍스트 -->
+          <div class="txt-box">
+            <div class="top">
+              <div class="title-earea">
+                <img class="halfCircle" src="/images/common/halfCircle.png" alt="반원" />
+                <h2 class="recruit-title">{{ data.title }}</h2>
               </div>
-              <div class="bgBox right">
-                <h3 class="bgBox-title">창의 인재 육성</h3>
-                <p class="f-18 mt-20">
-                    학생들의 창조적인 세계관을 발굴하고, 상상력을 현실로 이끄는 파트너가 되겠습니다.
-                </p>
-                <h3 class="bgBox-title mt-50">함께하는 미래 가치</h3>
-                <p class="f-18 mt-20">
-                    공생적 상상력을 통한 창조적 가치 실현<br/>
-                    다른 사람과 함께 살아가는 세상을 상상하고, 그 속에서 더 나은 
-                    공동체적 가치를 실현합니다
-                </p>                
+
+              <div class="btn-earea mt-20">
+                <button class="f-18 flex btn01 white"
+                  v-for="(btn, idx) in data.buttons"
+                  :key="idx"
+                  @click="downloadFile(btn.url)"
+                >
+                  {{ btn.label }}
+                  <img src="/images/common/download.svg" alt="다운로드 아이콘" />
+                </button>
               </div>
             </div>
 
-          </div> 
+            <div class="bottom desc mt-70">
+              <h3 class="pointColor02">대회 주제</h3>
+              <div class="gradient mt-20">
+                <span class="recruit-topic">{{ data.topic }}</span>
+              </div>
+            </div>           
+
+          </div>
+        </div>
+
+        <!-- 하단 회색박스 영역 -->
+        <div class="contents-container mt-16">
+          <div class="flex-container">
+            
+            <div class="bgBox left box01">
+              <h3 class="bgBox-title">부문별 세부 주제</h3>
+              <p class="f-18 mt-20">
+                  000
+              </p>
+              <h3 class="bgBox-title mt-50">참가 대상</h3>
+              <p class="f-18 mt-20">
+                초등 / 중등 / 고등 / 대학부(대학원생 포함)
+              </p>
+              <h3 class="bgBox-title mt-50">참가 부문</h3>
+              <p class="f-18 mt-20">
+                자유 창작 부문(주제 해석 및 표현 형식 자유)
+              </p>
+              <p class="arrow">→ 주제를 창의적으로 해석하여, 자신만의 세계를 표현</p>       
+            </div>
+            
+            <div class="bgBox right box02">
+              <h3 class="bgBox-title">주요 일정</h3>
+              <p class="f-18 mt-20">
+                111
+              </p>
+                                  
+            </div>
+          </div>
+        </div> 
+        <div class="contents-container mt-16">
+          <div class="flex-container">
+            
+            <div class="bgBox left box03">
+              <h3 class="bgBox-title">출품 규격</h3>
+              <p class="f-18 mt-20">
+                <span class="bold">초등부 (저학년)</span>
+                <span>:</span>
+                <span>8절지</span>
+              </p>
+              <p class="f-18 mt-20">
+                <span class="bold">초등부 (고학년)</span>
+                <span>:</span>
+                <span>4절지</span>
+              </p>
+              <p class="f-18 mt-20">
+                <span class="bold">중 · 고등부</span>
+                <span>:</span>
+                <span>4절 도화지</span>
+              </p>
+              <p class="f-18 mt-20">
+                <span class="bold">대학부(대학원생 포함)</span>
+                <span>:</span>
+                <span>10호 미만</span>
+              </p>
+              <p class="f-18 mt-20">
+                <span class="bold">디지털 드로잉</span>
+                <span>:</span>
+                <span>A3 크기(5절지) 기준,<br/>
+                  해상도 300 DPI 기준</span>
+              </p>
+              <div class="caution mt-10">
+                <ul>
+                  <li>규격 준수 필수 (규격 초과 시 심사에서 제외 될 수 있습니다)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bgBox right box04">
+              <h3 class="bgBox-title">출품 형식</h3>
+              <p class="f-18 mt-20">
+                작품 재료는 자유, 모든 재료를 활용한 회화, 기타 <b>평면 작품</b>
+                (유화, 크레용, 파스텔, 수채화, 볼펜, 아크릴, 디지털 드로잉 등)
+              </p>
+              <div class="caution mt-10">
+                <ul>
+                  <li>순수예술, 단 조각과 입체 작품 제외</li>
+                </ul>
+              </div>
+              <h3 class="bgBox-title mt-50">참가비</h3>
+              <p class="f-18 mt-20">
+                <span class="bold">초등부</span>
+                <span>:</span>
+                <span>무료</span>
+              </p>         
+              <p class="f-18 mt-20">
+                <span class="bold">중 · 고등부</span>
+                <span>:</span>
+                <span>20,000원</span>
+              </p> 
+              <p class="f-18 mt-20">
+                <span class="bold">대학부(대학원생 포함)</span>
+                <span>:</span>
+                <span>30,000원</span>
+              </p>      
+              <div class="caution mt-10">
+                <ul>
+                  <li>참가비 입금 계좌는 ‘출품 방법’을 확인해 주세요.</li>
+                </ul>
+              </div>            
+            </div>
+
+          </div>
+        </div> 
 
         <div class="contents-container mt-70">
         </div>      
@@ -65,42 +171,66 @@
 </template>
 
 <script setup>
+// 더미데이터
+const data = ref({
+  title: '제1회 뉴스피릿 미술 공모전',
+  posterImg: '/images/guide/poster.jpg', 
+  buttons: [
+    {
+      label: '모집요강 포스터',
+      url: '/files/guide/poster.zip' 
+    },
+    {
+      label: '모집요강(PDF)',
+      url: '/files/guide/recruit.pdf'
+    }
+  ],
+  topic: '“미래의 스타, 꿈꾸는 지구"'
+})
+
+function downloadFile(url) {
+  window.open(url, '_blank')
+}
+
+
+
+
 </script>
 
 <style scoped>
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10%;
+}
+.poster-box {
+  width: 30%;
+}
+.txt-box {
+  width: 65%;
+}
+.btn-earea {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+.btn-earea .flex {
+  display: flex;
+  gap: 10px;
+}
+.gradient {
+  border-radius: 20px;
+  padding: 28px 10px;
+  text-align: center;
+}
+.recruit-topic {
+  color: #FEFEFE;
+  font-size: 44px;
+}
 
-.sub .bgBox table {
-border: 1px solid #ACACAC;
-background: #FEFEFE;
-text-align: center;
-border-collapse: collapse;
-width: 100%;
-}
-.sub .bgBox table th {
-background: #FFF5F5;
-padding: 10px;
-font-size: 18px;
-font-weight: 400;
-}
-.sub .bgBox table td {
-border-top: 1px solid #ACACAC;
-padding: 10px;
-font-size: 16px;
-}
-.sub .bgBox table .border-r {
-border-right: 1px solid #ACACAC;
-}
-.sub .awards {
 
-}
 @media (max-width: 768px) {
-.sub .bgBox table td {
-  line-height: 1.2;
-  font-size: 14px;
-}
-.sub .bgBox table th {
-  font-size: 16px;
-}
+
 }
 
 </style> 
