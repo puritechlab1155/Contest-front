@@ -138,7 +138,11 @@
           </div>
         </div>      
         <div class="btn-wrap">
-          <button class="btn01 black custom">제출</button>
+          <BtnBlack
+            :label="'제출'"
+            :disabled="!allChecked"
+            @click="handleNext"
+          />
         </div>
       </section>
 

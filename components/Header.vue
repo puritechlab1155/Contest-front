@@ -44,9 +44,7 @@
             </div>
 
             <!-- 버튼 -->
-            <div class="buttons">
-              <button class="btn01 black">접수 바로가기</button>
-            </div>
+            <button class="btn01 black pc" @click="goToApply">접수 바로가기</button>
           </nav>
           <div 
             class="submenu-box" 
@@ -76,7 +74,7 @@
         :style="{ transform: offcanvasOpenActive ? 'translateX(0%)' : 'translateX(100%)', height: offcanvasOpenActive ? '100vh' : 'auto' }"
       >
         <div class="offcanvas-body">
-          <button class="btn01 black mobile">접수 바로가기</button>
+          <button class="btn01 black mobile" @click="goToApply">접수 바로가기</button>
           <nav id="nav" class="nav-mobile">
             <ul class="gnb-mobile">
               <li 
@@ -121,7 +119,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute()
 
 const isSubmenuVisible = ref(false)
 const selectedMenuKey = ref(null) 
@@ -185,20 +187,9 @@ const closeMenu = () => {
 }
 
 
-const onDocumentClick = (e) => {
-  if (headerRef.value && !headerRef.value.contains(e.target)) {
-    isSubmenuVisible.value = false
-    selectedMenuKey.value = null
-  }
+const goToApply = () => {
+  router.push('/apply')
 }
-
-const onKeydown = (e) => {
-  if (e.key === 'Escape') {
-    isSubmenuVisible.value = false
-    selectedMenuKey.value = null
-  }
-}
-
 
 const toggleOffcanvas = () => {
   offcanvasOpenActive.value = !offcanvasOpenActive.value
@@ -284,6 +275,9 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.header .btn01.pc {
+  margin-left: 15px;
 }
 .header .right{
   display: flex;

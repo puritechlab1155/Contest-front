@@ -16,8 +16,8 @@
         </div>
         <div class="box-b">
           <span class="text mt-5">(사)한국예술문화단체총연합회</span>
-          <span class="text">(사)한국전업미술가협회</span>
-          <span class="text">(사)한국예술작가협회</span>        
+          <span class="text">(사)한국예술작가협회</span>
+          <span class="text">(사)한국전업미술가협회</span>        
         </div>
       </div>
     </div>

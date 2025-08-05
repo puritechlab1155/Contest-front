@@ -24,7 +24,7 @@
               <p class="sub">→ 주제를 창의적으로 해석하여, 자신만의 세계를 표현</p>
             </div>
           </div> -->
-          <button class="btn01 white">모집요강 더보기</button>
+          <button class="btn01 white" @click="goToGuide">모집요강 더보기</button>
 
         </div>
         <div class="image-wrapper">
@@ -84,6 +84,16 @@
 </template>
 
 <script setup>
+
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute()
+
+const goToGuide = () => {
+  router.push('/guide/recruit')
+}
+
 </script>
 
 <style scoped>

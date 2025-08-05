@@ -88,6 +88,7 @@
                       :name="`agree${index}`"
                       value="no" 
                       v-model="agreements[index]" 
+                      @change="handleDisagree(index)"
                     /> 
                     동의하지 않습니다
                   </label>
@@ -103,9 +104,11 @@
             
           </div>
           <div class="btn-wrap">
-            <button class="btn01 black custom" 
-            :disabled="!allChecked" 
-            @click="handleNext">다음</button>
+            <BtnBlack
+              :label="'다음'"
+              :disabled="!allChecked"
+              @click="handleNext"
+            />
           </div>
         </div>
       </section>
@@ -133,6 +136,20 @@ function handleCountdownStatus(status) {
   // status가 true면 마감된 상태라고 가정
   isDeadlineClosed.value = status
 }
+
+
+
+function handleDisagree(index) {
+  if (agreements.value[index] === 'no') {
+    Swal.fire({
+      icon: 'warning',
+      title: '약관 동의 필요',
+      text: '공모전 참여를 위해서는 모든 약관에 동의해주셔야 합니다.',
+      confirmButtonText: '확인'
+    })
+  }
+}
+
 
 const termsList = [
   {
@@ -281,6 +298,7 @@ const allChecked = computed({
   }
 })
 
+
 const handleNext = () => {
   if (isDeadlineClosed.value) {
     Swal.fire({
@@ -309,6 +327,7 @@ const handleNext = () => {
 </script>
 
 <style scoped>
+
 .box {
   background-color: #FAFAFA;
   border-radius: 14px;
@@ -326,7 +345,7 @@ const handleNext = () => {
   justify-content: space-between;
   cursor: pointer;
   font-weight: bold;
-  font-size: clamp(16px, 2vw, 24px);
+  font-size: 24px;
 }
 .circle {
   display: flex;
@@ -413,7 +432,7 @@ const handleNext = () => {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: clamp(16px, 1.2vw, 18px);
+  font-size: 18px;
   color: #5D5D5D;
   font-weight: 400;
 }
@@ -524,11 +543,17 @@ const handleNext = () => {
   background: #aaa;
   cursor: not-allowed;
 } */
+
 .btn-wrap {
   width: 100%;
   text-align: center;
+  padding-bottom: 50px;
+  position: sticky;
+  bottom: 0 !important;
 }
+/* 
 .custom {
+  margin: 0 auto;
   padding: 10px 80px;
   margin-top: 50px;
 }
@@ -536,7 +561,7 @@ const handleNext = () => {
   background: #aaa;
   cursor: not-allowed;
   border: 1px solid #aaa;
-}
+} */
 
 @media (max-width: 768px) {
   .box {
@@ -561,6 +586,15 @@ const handleNext = () => {
   }
   .strong {
     font-size: 18px;
+  }
+  .btn-wrap {
+    padding-bottom: 0;
+  }
+  .term-header {
+    font-size: 16px;
+  }
+  .term-radio label {
+    font-size: 16px;
   }
 }
 

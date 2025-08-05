@@ -18,12 +18,12 @@
       </div>
 
       <!-- 컨텐츠  -->
-      <section class="awards subContent">
-        <CountdownTimer @closedStatus="handleCountdownStatus" class="inner"/>
+      <section class="awards subContent inner">
+        <CountdownTimer @closedStatus="handleCountdownStatus"/>
         <div class="contents-container mt-70">
           <div class="age-select-wrap">
             <div class="age-options">
-              <!-- <div
+              <div
                 v-for="(option, idx) in options"
                 :key="idx"
                 class="age-option"
@@ -34,6 +34,8 @@
                   <img :src="option.icon" alt="icon" class="age-icon" />
                 </div>
                 <span class="label">{{ option.label }}</span>
+
+                <!-- 체크 아이콘 -->
                 <svg
                   v-if="selected === option.value"
                   class="check-icon"
@@ -46,19 +48,9 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-              </div> -->
-              <div class="left">
-                <div class="option-inner">
-                  만 14세 미만 <br> 참가자
-                </div>
-              </div>
-              <div class="right">
-                <div class="option-inner">
-                만 14세 이상 <br> 참가자
-                </div>
               </div>
             </div>
-
+            
           </div>
         </div>      
       </section>
@@ -127,68 +119,16 @@ const handleNext = () => {
 
 .age-options {
   display: flex;
-  justify-content: center;
+  gap: 20px;
   width: 100%;
 }
-.contents-container {
-  width: calc(100% + 40px);
-  /* padding-left: 20px; */
-  padding-right: 20px;
-}
-.left {
-  display: flex;
-  align-items: right;
-  justify-content: center;
-  flex: 1;
-  height: 300px;
-  width: 100%;
-  background-image: url(../../assets/img/apply/left-bg.png);
-  background-position: bottom center; 
-  background-repeat: no-repeat;
-  background-size: 100% auto;
 
-  /* background-size: calc(100% + 40px) auto;  */
-}
-.right {
-  display: flex;
-  align-items: left;
-  justify-content: center;
-  flex: 1;
-  height: 300px;
-  background-image: url(../../assets/img/apply/right-bg.png);
-  background-position: bottom center; 
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  /* background-size: calc(100% + 40px) auto; */
-}
-.option-inner {
-  max-width: 1248px;
-  font-size: 70px;
-  font-weight: 600;
-  background-color: aquamarine;
-}
-.left .option-inner {
-  background-image: url(../../assets/img/apply/ageDown.png);
-  background-position: bottom center; 
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  margin-left: auto;
-}
-.right .option-inner {
-  background-image: url(../../assets/img/apply/ageUp.png);
-  background-position: bottom center; 
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  margin-right: auto;
-}
-
-/* 
 .age-option {
   flex: 1;
   padding: 24px 16px;
   border-radius: 12px;
   border: 2px solid transparent;
-  background-color: #FEFEFE;
+  background-color: #F8F8F8;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -198,7 +138,7 @@ const handleNext = () => {
 }
 
 .age-option.selected {
-  background-color: rgba(255, 142, 172, 0.1); 
+  background-color: rgba(255, 142, 172, 0.1); /* #B31C45 with opacity */
   border-color: #B31C45;
   border: 2px solid #B31C45;
 }
@@ -232,13 +172,17 @@ const handleNext = () => {
   height: 55px;
   object-fit: contain;
   padding: 5px;
-} */
-
-@media (max-width: 768px) {
-  .age-options {
-    flex-direction: column;
-  }
 }
+.custom {
+  padding: 10px 80px;
+  margin-top: 50px;
+}
+.custom:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+  border: 1px solid #aaa;
+}
+
 
 
 </style> 

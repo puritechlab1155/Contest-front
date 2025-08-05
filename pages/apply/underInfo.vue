@@ -194,7 +194,11 @@
           </label>
         </div>
         <div class="btn-wrap">
-          <button class="btn01 black custom">제출</button>
+          <BtnBlack
+            :label="'제출'"
+            :disabled="!allChecked"
+            @click="handleNext"
+          />
         </div>
       </section>
 
@@ -570,16 +574,6 @@ const submitForm = () => {
   bottom: 0 !important;
 }
 
-.custom {
-  margin: 0 auto;
-  padding: 10px 80px;
-  margin-top: 50px;
-}
-.custom:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-  border: 1px solid #aaa;
-}
 
 .remove-button {
   background-color: #ACACAC;
@@ -725,7 +719,6 @@ textarea {
     font-size: 16px;
     color: #5D5D5D;
   }
-
   .bold {
     font-size: 16px;
   }
