@@ -60,7 +60,7 @@
                   <label class="label required">보호자 관계</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <div class="radio-group">
+                <div class="radio-group ect1">
                   <label><input type="radio" value="mother" v-model="formData.guardianRelation" /> 모</label>
                   <label><input type="radio" value="father" v-model="formData.guardianRelation" /> 부</label>
                   <label class="etc">
@@ -129,7 +129,7 @@
                   <label class="label required">원서 파일</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerApplicationFileInput" class="file-button btn01 white">파일 선택</button>
+                <button type="button" @click="triggerApplicationFileInput" class="file-button btn01 white">파일 추가</button>
                 <span class="file-name" v-if="applicationFileName">{{ applicationFileName }}<button class="remove-button" @click="removeApplicationFile">×</button></span>
                 <input ref="applicationFileInput" type="file" @change="handleApplicationFileChange" style="display:none" />
               </div>
@@ -140,7 +140,7 @@
                   <label class="label required">작품 사진</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white">파일 선택</button>
+                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white">파일 추가</button>
                 <div class="file-wrap">
                   <div v-if="workImagePreview" class="preview-container">
                     <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />
@@ -178,6 +178,21 @@
             </form>
           </div>
         </div>      
+        <div class="box two">
+          <div class="bold">[필수] 보호자 동의</div>
+          <div class="confirm">본인은 공모전에 지원하는 ○○○(참가자)의 법적 보호자로서, 공모전 참여 및 개인정보 수집·이용에 동의합니다.</div>
+          <div class="dot">
+            <ul>
+              <li>수집 항목: 참가자 및 보호자의 성명, 연락처, 관계 등</li>
+              <li>수집 목적: 공모전 접수, 심사, 수상자 안내 및 문의 대응 등</li>
+              <li>보유 기간: 공모전 종료 후 1년</li>
+            </ul>
+          </div>
+          <label for="agree">
+            <input type="checkbox" v-model="formData.agree" id="agree" />
+              위 내용에 동의합니다
+          </label>
+        </div>
         <div class="btn-wrap">
           <button class="btn01 black custom">제출</button>
         </div>
@@ -296,6 +311,11 @@ const submitForm = () => {
   border: 1px solid #EFEFEF;
   padding: 50px;
 }
+.box.two{
+  margin-top: 30px;
+  text-align: center;
+}
+
 
 .apply-form {
   display: flex;
@@ -371,6 +391,9 @@ const submitForm = () => {
   gap: 15px;
   align-items: center;
   flex-wrap: wrap;
+}
+.radio-group.ect1 {
+  height: 50px;
 }
 
 .radio-group label {
@@ -495,6 +518,45 @@ const submitForm = () => {
 .mb-0 {
   margin-bottom: 0;
 }
+.box.two label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: clamp(16px, 1.2vw, 18px);
+  color: #5D5D5D;
+  font-weight: 400;
+}
+
+.box.two input[type="checkbox"]{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-right: 6px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #5D5D5D;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  background: white;
+}
+.box.two input[type="checkbox"]:checked {
+  background: white;
+  border: 2px solid #B31C45;
+}
+.box.two input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #B31C45;
+}
+
 
 /* .info-wrap input.mx-700 {
   max-width: 700px !important;
@@ -538,6 +600,41 @@ textarea {
   overflow-y: auto;   
   resize: none;        
 }
+/* .dot ul {
+  padding-left: 20px;  
+  list-style-type: dot; 
+}
+
+.dot li {
+  color: #5D5D5D;
+  font-size: 16px;
+  list-style-position: inside; 
+} */
+.dot {
+  margin-top: 20px;
+}
+.dot ul {
+  padding-left: 1.5em; 
+  margin: 0.5em 0 1em;
+}
+.dot li {
+  padding-left: 20px;
+  font-size: 18px;
+  color: #5D5D5D;
+  line-height: 150%;
+}
+.dot li::before {
+  content: '· ';
+}
+
+.confirm {
+  font-size: 18px;
+  color: #5D5D5D;
+  margin-top: 10px;
+}
+.bold {
+  font-size: 18px;
+}
 
 
 @media (max-width: 768px) {
@@ -553,6 +650,7 @@ textarea {
     font-size: 16px;
     width: 100px;
   }
+
   .radio-group label {
     font-size: 16px;
   }
@@ -622,6 +720,17 @@ textarea {
   }
   .btn-wrap {
     padding-bottom: 0;
+  }
+  .confirm {
+    font-size: 16px;
+    color: #5D5D5D;
+  }
+
+  .bold {
+    font-size: 16px;
+  }
+  .dot li {
+    font-size: 16px;
   }
 }
 

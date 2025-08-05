@@ -192,9 +192,3 @@ br.mob, br.smob {
   font-family: 'NotoSerifKR';
 }
 
-
-@media (max-width: 768px) {
-  .btn01 {
-    font-size: 16px;
-  }
-}
