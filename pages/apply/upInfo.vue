@@ -73,7 +73,11 @@
                   </div>
                   <div class="info-wrap">
                     <input class="mx-700" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
-                    <p class="caution">❖ 접수 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</p>
+                    <div class="caution">
+                      <ul>
+                        <li>접수 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>

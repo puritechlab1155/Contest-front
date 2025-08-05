@@ -21,7 +21,7 @@
       <section class="awards subContent inner">
         <div class="contents-container mt-70">
           <div class="box">
-            <h3 class="bgBox-title">작품 접수 (14세 미만)</h3>
+            <h3 class="bgBox-title">접수 신청시 입력하신 정보로 조회 가능합니다.</h3>
             <form class="apply-form" @submit.prevent="submitForm">
               <!-- 참가자 성명 -->
               <div class="form-group">
@@ -40,7 +40,11 @@
                 </div>
                 <div class="info-wrap">
                   <input type="text" v-model="formData.phone" placeholder="01012345678" />
-                  <p class="caution">❖ 만14세 미만 접수자는 보호자 연락처 기재가 가능합니다.</p>
+                  <div class="caution">
+                    <ul>
+                      <li>만14세 미만 접수자는 보호자 연락처 기재가 가능합니다</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
@@ -64,7 +68,11 @@
                   </div>
                   <div class="info-wrap">
                     <input class="mx-700" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
-                    <p class="caution">❖ 접수 당시 입력하신 이메일 주소를 입력해 주세요.</p>
+                    <div class="caution">
+                      <ul>
+                        <li>접수 당시 입력하신 이메일 주소를 입력해 주세요.</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -246,6 +254,12 @@ const formData = ref({
   }
   .form-label-wrap.one{
     display: none;
+  }
+  .btn-wrap{
+    padding-bottom: 0;
+  }
+  .form-label-wrap {
+    height: 25px;
   }
 }
 

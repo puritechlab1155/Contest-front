@@ -9,43 +9,49 @@
         </nuxt-link>
       </div>
       <div class="right pc_display">
-        <!-- 메뉴 -->
-        <nav class="menu">
-          <div 
-            v-for="menu in menus" 
-            :key="menu.key" 
-            class="menu-item"
-          >
-            <button 
-              type="button"
-              class="main-a"
-              :class="{ active: selectedMenuKey === menu.key }" 
-              @click="toggleMenu(menu.key)"
-            >
-              {{ menu.label }}
-            </button>
-            <div 
-              class="submenu" 
-              v-show="isSubmenuVisible"
-            >
-              <nuxt-link 
-                v-for="(sub, idx) in menu.submenu" 
-                :key="idx" 
-                :href="sub.href"
-                class="submenu-a"
-              >
-                {{ sub.label }}
-              </nuxt-link>
-            </div>
-          </div>
-        </nav>
         <div 
-          class="submenu-box" 
-          :class="{ show: isSubmenuVisible }"
-        ></div>
-        <!-- 버튼 -->
-        <div class="buttons">
-          <button class="btn01 black">접수 바로가기</button>
+          class="menu-wrapper" 
+          @mouseenter="openMenu"
+          @mouseleave="closeMenu"
+        >
+          <!-- 메뉴 -->
+          <nav class="menu">
+            <div 
+              v-for="menu in menus" 
+              :key="menu.key" 
+              class="menu-item"
+            >
+              <button 
+                type="button"
+                class="main-a"
+                :class="{ active: selectedMenuKey === menu.key }" 
+              >
+                {{ menu.label }}
+              </button>
+              <div 
+                class="submenu" 
+                v-show="isSubmenuVisible"
+              >
+                <nuxt-link 
+                  v-for="(sub, idx) in menu.submenu" 
+                  :key="idx" 
+                  :href="sub.href"
+                  class="submenu-a"
+                >
+                  {{ sub.label }}
+                </nuxt-link>
+              </div>
+            </div>
+
+            <!-- 버튼 -->
+            <div class="buttons">
+              <button class="btn01 black">접수 바로가기</button>
+            </div>
+          </nav>
+          <div 
+            class="submenu-box" 
+            :class="{ show: isSubmenuVisible }"
+          ></div>
         </div>
       </div>
     </div>
@@ -168,17 +174,14 @@ const menus = [
   }
 ]
 
+const openMenu = (key) => {
+  isSubmenuVisible.value = true
+  selectedMenuKey.value = key
+}
 
-const toggleMenu = (key) => {
-  if (isSubmenuVisible.value && selectedMenuKey.value === key) {
-    // 같은 메뉴 클릭 시 서브메뉴 닫기
-    isSubmenuVisible.value = false
-    selectedMenuKey.value = null
-  } else {
-    // 다른 메뉴 클릭 시 열기 & 선택 메뉴 변경
-    isSubmenuVisible.value = true
-    selectedMenuKey.value = key
-  }
+const closeMenu = () => {
+  isSubmenuVisible.value = false
+  selectedMenuKey.value = null
 }
 
 
@@ -254,19 +257,16 @@ const onScroll = () => {
 
 
 onMounted(() => {
-  document.addEventListener('click', onDocumentClick)
-  document.addEventListener('keydown', onKeydown)
   window.addEventListener('scroll', onScroll)
 })
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', onDocumentClick)
-  document.removeEventListener('keydown', onKeydown)
   window.removeEventListener('scroll', onScroll)
   document.body.style.overflow = ''
   document.documentElement.style.overflow = ''
-
 })
+
+
 </script>
 
 <style>
@@ -298,11 +298,6 @@ onBeforeUnmount(() => {
   object-fit: contain;
 }
 
-.header .menu-item {
-  position: relative;
-}
-
-
 .header .menu {
   display: flex;
   font-size: 18px;
@@ -327,8 +322,6 @@ onBeforeUnmount(() => {
   position: relative;
   cursor: pointer;
   background: #fff;
-
-
 }
 
 /* 아래 보더 효과 */
@@ -357,14 +350,14 @@ onBeforeUnmount(() => {
 /* 서브메뉴 박스 기본 숨김 */
 .header .submenu-box {
   position: absolute;
-  top: 90px;
+  top: 75px;
   left: 0;
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-20px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 50;
   height: 180px;
 }
@@ -380,10 +373,9 @@ onBeforeUnmount(() => {
   top: 100%;
   background: transparent;
   z-index: 100;
-  /* display: none; */
   text-align: center;
   height: 50px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .header .submenu-a {
