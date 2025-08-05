@@ -129,7 +129,6 @@ img, fieldset, abbr {
 /* 공통 버튼 스타일 */
 .btn01 {
   font-size: 18px;
-  font-weight: 600;
   cursor: pointer;
   border: 1px solid transparent;
   transition: 0.3s;
@@ -158,6 +157,9 @@ img, fieldset, abbr {
 }
 .mt-30 {
   margin-top: 30px;
+}
+.mt-50 {
+  margin-top: 50px;
 }
 .f-18 {
   font-size: 18px;
@@ -188,4 +190,11 @@ br.mob, br.smob {
 
 .title-point{
   font-family: 'NotoSerifKR';
+}
+
+
+@media (max-width: 768px) {
+  .btn01 {
+    font-size: 16px;
+  }
 }
