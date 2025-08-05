@@ -4,7 +4,9 @@
     <div class="header-inner">
       <!-- 로고 -->
       <div class="logo">
-        <img class="logo-img" src="../assets/img/common/logo.png" alt="로고" />
+        <nuxt-link to="/">
+          <img class="logo-img" src="../assets/img/common/logo.png" alt="로고" />
+        </nuxt-link>
       </div>
       <div class="right pc_display">
         <!-- 메뉴 -->
@@ -138,7 +140,7 @@ const menus = [
     submenu: [
       { label: '모집요강', href: '/guide/recruit' },
       { label: '출품방법', href: '/guide/submit' },
-      { label: '심사 및 시사', href: '/guide/judge' }
+      { label: '심사 및 시상', href: '/guide/judge' }
     ]
   },
   {

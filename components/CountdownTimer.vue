@@ -6,12 +6,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+
+const emit = defineEmits(['closedStatus'])
 
 // 마감일 설정 (10월 15일 자정 기준)
 const deadline = new Date('2025-10-15T00:00:00')
 
 const countdown = ref('')
+const isClosed = ref(false)
 
 // 시간을 계산하는 함수
 function updateCountdown() {
@@ -20,6 +22,8 @@ function updateCountdown() {
 
   if (diff <= 0) {
     countdown.value = '마감되었습니다'
+    isClosed.value = true
+    emit('closedStatus', isClosed.value)
     return
   }
 
@@ -29,6 +33,9 @@ function updateCountdown() {
   const seconds = Math.floor((diff / 1000) % 60)
 
   countdown.value = `${days}일 ${hours}시간 ${minutes}분 ${seconds}초`
+  isClosed.value = false
+
+  emit('closedStatus', false)
 }
 
 let interval

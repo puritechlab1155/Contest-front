@@ -30,9 +30,9 @@
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
                 <div class="radio-group">
+                  <label><input type="radio" value="low1" v-model="formData.category" /> 초등부(1~3학년)</label>
+                  <label><input type="radio" value="low2" v-model="formData.category" /> 초등부(4~6학년)</label>
                   <label><input type="radio" value="middle" v-model="formData.category" /> 중등부</label>
-                  <label><input type="radio" value="high" v-model="formData.category" /> 고등부</label>
-                  <label><input type="radio" value="univ" v-model="formData.category" /> 대학부(대학원생 포함)</label>
                 </div>
               </div>
 
@@ -48,10 +48,51 @@
               <!-- 본인 연락처 -->
               <div class="form-group">
                 <div class="form-label-wrap">
-                  <label class="label required">본인 연락처</label>
+                  <label class="label">본인 연락처</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
                 <input type="text" v-model="formData.phone" placeholder="01012345678" />
+              </div>
+
+              <!-- 보호자 관계 -->
+              <div class="form-group">
+                <div class="form-label-wrap">
+                  <label class="label required">보호자 관계</label>
+                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <div class="radio-group">
+                  <label><input type="radio" value="mother" v-model="formData.guardianRelation" /> 모</label>
+                  <label><input type="radio" value="father" v-model="formData.guardianRelation" /> 부</label>
+                  <label class="etc">
+                    <input type="radio" value="other" v-model="formData.guardianRelation" />
+                      기타
+                    <input
+                      v-if="formData.guardianRelation === 'other'"
+                      type="text"
+                      v-model="formData.guardianRelationEtc"
+                      class="inline-input"
+                      placeholder="입력해주세요"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <!-- 보호자 연락처 -->
+              <div class="form-group">
+                <div class="form-label-wrap">
+                  <label class="label required">보호자 연락처</label>
+                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <input type="text" v-model="formData.guardianPhone" placeholder="01012345678"/>
+              </div>
+
+              <!-- 보호자 성함 -->
+              <div class="form-group">
+                <div class="form-label-wrap">
+                  <label class="label required">보호자 성함</label>
+                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <input type="text" v-model="formData.guardianName" placeholder="보호자 성함을 입력해주세요."/>
               </div>
 
               <!-- 이메일 인증 -->
@@ -202,6 +243,10 @@ const formData = ref({
   category: '',
   name: '',
   phone: '',
+  guardianRelation: '',
+  guardianRelationEtc: '',
+  guardianPhone: '',
+  guardianName: '',
   email: '',
   authCode: '',
   applicationFile: null,
@@ -434,6 +479,7 @@ const submitForm = () => {
   margin-bottom: 10px;
 }
 
+
 .certi {
   /* border: 1px solid #D9D9D9; */
   padding: 10px 30px;
@@ -566,6 +612,9 @@ textarea {
   }
   .form-label-wrap.one{
     display: none;
+  }
+  .btn-wrap {
+    padding-bottom: 0;
   }
 }
 

@@ -50,7 +50,7 @@
 <style scoped>
 .footer {
   /* background-color: teal; */
-  padding: 50px;
+  padding: 50px 20px;
   display: flex;
   flex-direction: column;
 }

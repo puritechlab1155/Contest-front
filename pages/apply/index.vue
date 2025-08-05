@@ -19,7 +19,7 @@
 
       <!-- 컨텐츠  -->
       <section class="awards subContent inner">
-        <CountdownTimer />
+        <CountdownTimer @closedStatus="handleCountdownStatus"/>
         <div class="contents-container mt-70">
           <div class="box">
             <div 
@@ -28,7 +28,7 @@
               class="term-item"
             >
               <div class="term-header" @click="toggle(index)">
-                <strong>{{ item.title }}</strong>
+                <strong class="strong">{{ item.title }}</strong>
                 <div class="circle">
                   <svg
                     v-if="opened[index]"
@@ -85,7 +85,7 @@
                     <input 
                       :id="`agreeNo-${index}`"
                       type="radio" 
-                      :name="`agree${index}`" 
+                      :name="`agree${index}`"
                       value="no" 
                       v-model="agreements[index]" 
                     /> 
@@ -101,20 +101,38 @@
             </label>
             <!-- <p v-if="!allAgreed" class="error">※ 전체 약관에 동의해 주세요</p> -->
             
-            </div>
-            <div class="btn-wrap">
-              <button class="btn01 black custom" :disabled="!allAgreed">다음</button>
-            </div>
           </div>
+          <div class="btn-wrap">
+            <button class="btn01 black custom" 
+            :disabled="!allChecked" 
+            @click="handleNext">다음</button>
+          </div>
+        </div>
       </section>
 
     </div>
 
   </main>
+
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+
+import Swal from 'sweetalert2'
+import { useState } from "#imports";
+import { useRouter, useRoute } from "vue-router";
+import { useCookie } from '#imports';
+
+const config = useRuntimeConfig() 
+const token = useCookie('auth_token').value
+const router = useRouter();
+const route = useRoute()
+const isDeadlineClosed = ref(false)
+
+function handleCountdownStatus(status) {
+  // status가 true면 마감된 상태라고 가정
+  isDeadlineClosed.value = status
+}
 
 const termsList = [
   {
@@ -247,7 +265,7 @@ const termsList = [
   }
 ]
 
-const opened = ref(termsList.map(() => false))
+const opened = ref(termsList.map(() => true))
 const agreements = ref(termsList.map(() => null))
 
 const toggle = (index) => {
@@ -262,6 +280,32 @@ const allChecked = computed({
     agreements.value = agreements.value.map(() => val ? 'yes' : null)
   }
 })
+
+const handleNext = () => {
+  if (isDeadlineClosed.value) {
+    Swal.fire({
+      icon: 'warning',
+      title: '접수 기간 종료',
+      text: '현재 접수기간이 아닙니다.',
+      confirmButtonText: '확인'
+    })
+    return
+  }
+
+  // if (!allAgreed.value) {
+  //   Swal.fire({
+  //     icon: 'warning',
+  //     title: '약관 동의 필요',
+  //     text: '공모전 참여를 위해서는 모든 약관에 동의해주셔야 합니다.',
+  //     confirmButtonText: '확인'
+  //   })
+  //   return
+  // }
+
+  router.push('/apply/ageCheck')
+}
+
+
 </script>
 
 <style scoped>
@@ -304,7 +348,24 @@ const allChecked = computed({
   padding: 10px;
   /* border: 1px solid #ccc; */
   margin-bottom: 10px;
+
+  scrollbar-width: thin; /* Firefox용 */
+  scrollbar-color: #D9D9D9 #EFEFEF; /* Firefox용 */
 }
+.term-scroll::-webkit-scrollbar {
+  width: 15px;
+}
+
+.term-scroll::-webkit-scrollbar-thumb {
+  background-color: #D9D9D9;  /* 스크롤 바 색상 */
+  border-radius: 10px;
+}
+
+.term-scroll::-webkit-scrollbar-track {
+  background-color: #EFEFEF;  /* 스크롤 배경 */
+  border-radius: 10px;
+}
+
 
 :deep(.term-content h3) {
   font-size: 18px;
@@ -337,7 +398,6 @@ const allChecked = computed({
   color: #5D5D5D;
 } */
 :deep(.term-content p) {
-  line-height: 1.6;
   margin: 0.5em 0;
   color: #5D5D5D;
 }
@@ -352,7 +412,6 @@ const allChecked = computed({
 .term-radio label {
   display: flex;
   align-items: center;
-  font-size: 14px;
   cursor: pointer;
   font-size: clamp(16px, 1.2vw, 18px);
   color: #5D5D5D;
@@ -486,6 +545,24 @@ const allChecked = computed({
   .term-radio {
     margin-top: 10px;
   }
+  .term-all {
+    padding: 10px 20px;
+  }
+  .term-all label {
+    font-size: 16px;
+  }
+  .custom {
+    width: 100vw;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  :deep(.term-content h3) {
+    font-size: 16px;
+  }
+  .strong {
+    font-size: 18px;
+  }
 }
+
 
 </style>
