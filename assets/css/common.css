@@ -127,13 +127,35 @@ img, fieldset, abbr {
   border: 0;
 }
 /* 공통 버튼 스타일 */
+.btn-wrap {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 50px;
+  position: sticky;
+  bottom: 0 !important;
+}
+@media (max-width: 768px) {
+
+  .btn-wrap {
+     padding-bottom: 0;
+   }
+  .btn01.black.custom {
+    width: 100vw;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .btn01.black.custom:not(:disabled):hover::before {
+    width: 100%;
+    height: 700px;  
+  }
+}
 .btn01 {
   position: relative;
   font-size: 18px;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: background 0.3s ease;
-  padding: 10px 30px;
+  border: 1px solid #222;
+  background-color: #FEFEFE;
+  transition: background 0.1s ease;
   overflow: hidden;
 }
 .btn01::before {
@@ -143,7 +165,7 @@ img, fieldset, abbr {
   left: var(--x, 50%);
   width: 0;
   height: 0;
-  background: #EFEFEF;
+  background: #222;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   transition: width 0.5s ease, height 0.5s ease, top 0s, left 0s;
@@ -154,25 +176,48 @@ img, fieldset, abbr {
   width: 300px;
   height: 300px;
 }
-.btn01:not(:disabled):hover {
-  color: #fff;
+.btn01 span {
+  padding: 10px 30px; /* 스타일 유지 위해 span padding으로 조절 */
+  display: block;
+}
+.btn01.black.custom span {
+  padding: 10px 80px; /* 스타일 유지 위해 span padding으로 조절 */
 }
 .btn01 span, .btn01 {
   position: relative;
-  z-index: 1;
+}
+.btn01 span:not(:disabled):hover, .btn01:not(:disabled):hover {
+  color: #FEFEFE;
 }
 
-
+/* 2 */
 .btn01.black {
   background-color: #222;
-  color: #FEFEFE;
   border: 1px solid #222;
 }
+.btn01.black span {
+  color: #FEFEFE;
+}
+.btn01.black::before {
+  background: #FEFEFE;
+}
+.btn01.black span:not(:disabled):hover, .btn01.black:not(:disabled):hover {
+  color: #222;
+}
+
+/* 3 */
 
 .btn01.white {
   background-color: #FEFEFE;
   border: 1px solid #D9D9D9;
 }
+.btn01.white::before {
+  background: #EFEFEF;
+}
+.btn01.white span:not(:disabled):hover, .btn01.white:not(:disabled):hover {
+  color: #222;
+}
+
 
 .mt-10 {
   margin-top: 10px;

@@ -12,10 +12,6 @@
 <script setup>
 
 defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
   disabled: {
     type: Boolean,
     default: false,
@@ -30,7 +26,6 @@ defineEmits(['click'])
 
 .custom {
   margin: 0 auto;
-  padding: 10px 80px;
   margin-top: 50px;
 }
 .custom:disabled {

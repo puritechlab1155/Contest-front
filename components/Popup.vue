@@ -3,20 +3,20 @@
     <div class="popup-content">
       <img :src="data.url" alt="팝업 이미지" class="popup-image" />
       <div class="popup-buttons">
+        <button class="black" @click="close">닫기</button>
         <button @click="closeForToday">하루 동안 보지 않기</button>
-        <button @click="close">닫기</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-// 1. 더미 데이터 직접 정의 (API 없이)
+// 더미 데이터 
 const data = reactive({
-  url: '/images/postpop.jpg', // public/images/postpop.jpg 에 이미지 파일 위치해야 함
+  url: '/images/mockup/postpop.jpg', 
 })
 
-// 2. 쿠키 기반으로 팝업 표시 여부 제어
+// 쿠키 기반으로 팝업 표시 여부 제어
 const show = ref(false)
 
 onMounted(() => {
@@ -43,11 +43,11 @@ function closeForToday() {
 <style scoped>
 .popup-overlay {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 300px;
+  top: 20px;
+  left: 20px;
+  width: 550px;
   background: #fff;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   z-index: 9999;
 }
@@ -67,15 +67,18 @@ function closeForToday() {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 10px;
   box-sizing: border-box;
 }
 
 .popup-buttons button {
   flex: 1;
-  margin: 0 5px;
-  font-size: 14px;
-  padding: 8px;
+  font-size: 18px;
+  padding: 15px;
   cursor: pointer;
+  background-color: #FEFEFE;
+}
+button.black {
+  background-color: #222;
+  color: #FEFEFE;
 }
 </style>

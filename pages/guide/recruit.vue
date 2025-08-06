@@ -17,9 +17,9 @@
       <!-- 네비게이션 -->
       <div class="subNav inner">
         <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span>공모 요강</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span class="pointColor01">모집요강</span>
       </div>
 
@@ -248,15 +248,15 @@ import Popup from '~/components/Popup.vue'
 // 더미데이터
 const data = ref({
   title: '제1회 뉴스피릿 미술 공모전',
-  posterImg: '/images/guide/poster.jpg', 
+  posterImg: '/images/mockup/poster.jpg', 
   buttons: [
     {
       label: '모집요강 포스터',
-      url: '/files/guide/poster.zip' 
+      url: '/images/mockup/poster.zip' 
     },
     {
       label: '모집요강(PDF)',
-      url: '/files/guide/recruit.pdf'
+      url: '/images/mockup/recruit.pdf'
     }
   ],
   topic: '“미래의 스타, 꿈꾸는 지구"',

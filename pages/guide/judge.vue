@@ -11,9 +11,9 @@
       <!-- 네비게이션 -->
       <div class="subNav inner">
         <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span>공모 요강</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span class="pointColor01">심사 및 시상</span>
       </div>
 
