@@ -311,12 +311,12 @@ function goToApply() {
 }
 .gradient {
   border-radius: 20px;
-  padding: 28px 10px;
+  padding: clamp(16px, 2vw, 28px) 10px;
   text-align: center;
 }
 .recruit-topic {
   color: #FEFEFE;
-  font-size: 44px;
+  font-size: clamp(24px, 3vw, 44px);
 }
 p.f-18.mt-20 {
   display: flex;
@@ -338,22 +338,14 @@ p.f-18.mt-20 {
 p.arrow {
   color: #5D5D5D;
 }
-/* .w-70 {} */
+
 
 @media (max-width: 768px) {
   .poster-box, .txt-box {
     width: 100%;
   }
-  .sub .recruit-title {
-    font-size: 24px;
-  }
   .f-18 {
     font-size: 16px;
-  }
-  .sub .halfCircle {
-    left: 35%;
-    top: 30px;
-    max-width: 50px;
   }
   .desc h3.pointColor02, .recruit-topic {
     font-size: 24px;

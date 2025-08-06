@@ -9,9 +9,6 @@
 }
 
 /* 서브공통 */
-.sub {
-
-}
 .subContent {
   padding: 70px 20px 110px 20px;
 }
@@ -20,7 +17,7 @@
 }
 .desc h2.pointColor02, .desc h3.pointColor02 {
   color: #B31C45;
-  font-size: 38px;
+  font-size: clamp(24px, 3vw, 38px);
 }   
 .sub .subNav.inner {
   padding: 0 20px;
@@ -83,16 +80,18 @@
   font-weight: 500;
   font-size: 16px;
 }
-.sub .caution ul {
+
+/* 메인, 서브 공통 주의사항 */
+.caution ul {
   padding-left: 0; 
 }
-.sub .caution li {
+.caution li {
   position: relative;
   padding-left: 20px;
   color: #FF5972;
   font-size: 16px;
 }
-.sub .caution li::before {
+.caution li::before {
   content: '❖';
   position: absolute;
   left: 0;
@@ -108,11 +107,12 @@
 } */
 .sub .halfCircle {
   position: relative;
-  left: 65%;
-  top: 70px;
+  left: 0px;
+  top: clamp(20px, 4vw, 70px);
+  max-width: clamp(50px, 7vw, 150px);
 }
 .sub .recruit-title {
-  font-size: 56px;
+  font-size: clamp(24px, 3vw, 56px);
   width: 100%;
   display: block;
   position: relative;

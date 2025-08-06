@@ -4,35 +4,20 @@
       <div class="group-a">
         <span class="label">주최 및 주관</span>
         <span class="divider">|</span> <span class="mob-br"></span>
-        <img src="/images/common/footer-logo.svg" alt="로고" class="logo" />
-        <!-- <span class="text">뉴스피릿 미술 공모전 운영위원회</span> -->
+        <img src="/images/common/footer-logo.png" alt="로고" class="logo" />
+        <span class="text">뉴스피릿 미술 공모전 운영위원회</span>
       </div>
       <div class="group-b">
         <span class="label">후원</span>
         <div class="box-a">
           <span class="divider">|</span> 
-          <div>
-            <img src="/public/images/common/footerSponsor1.svg" alt="한국환경공단">
-            <!-- <img src="/public/images/common/footerSponsor1.png" alt="한국환경공단"> -->
-          </div> 
-          <div>
-            <img src="/public/images/common/footerSponsor2.svg" alt="한국환경산업기술원">
-            <!-- <img src="/public/images/common/footerSponsor2.png" alt="한국환경산업기술원"> -->
-          </div>
+          <span class="text">한국환경공단</span> 
+          <span class="text">한국환경산업기술원</span>
         </div>
         <div class="box-b">
-          <div class="mt-5">
-            <img src="/public/images/common/footerSponsor3.svg" alt="한국예술문화단체총연합회">
-            <!-- <img src="/public/images/common/footerSponsor3.png" alt="한국예술문화단체총연합회"> -->
-          </div>
-          <div>
-            <img src="/public/images/common/footerSponsor4.svg" alt="한국예술작가협회">
-            <!-- <img src="/public/images/common/footerSponsor4.png" alt="한국예술작가협회"> -->
-          </div>
-          <div>
-            <img src="/public/images/common/footerSponsor5.svg" alt="한국전업미술가협회">
-            <!-- <img src="/public/images/common/footerSponsor5.png" alt="한국전업미술가협회"> -->
-          </div>        
+          <span class="text mt-5">(사)한국예술문화단체총연합회</span>
+          <span class="text">(사)한국예술작가협회</span>
+          <span class="text">(사)한국전업미술가협회</span>        
         </div>
       </div>
     </div>
@@ -64,7 +49,10 @@
 
 <style scoped>
 .footer {
+  /* background-color: teal; */
   padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
 }
 .footer .wrap01 {
   border: 1px solid #d9d9d9;
@@ -75,9 +63,9 @@
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
-  justify-content: center;
-  align-items: center;
+  gap: 20px;
+  justify-content: flex-start;
+  /* align-items: center; */
   overflow: hidden;
 }
 
@@ -108,7 +96,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: clamp(0px, 5vw, 100px);
+  gap: 100px;
   color: #5D5D5D;
   margin-top: 50px;
 }
@@ -155,48 +143,37 @@
 .footer .mob-br2 {
   display: none;
 }
-/* .footer .text {
+.footer .text {
   font-size: 14px;
   color: #5D5D5D;
   font-weight: 700;
-} */
+}
 .footer .text-a {
   color: #5D5D5D;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .footer .text-link {
   height: auto;
   width: auto;
+  font-weight: 700;
   color: #5D5D5D;
-  font-size: 16px;
+  font-size: 12px;
 }
-@media (max-width: 1165px) {
-  .footer .wrap01 {
-    gap: 20px;
-  }
-}
-
-@media (max-width: 958px) {
+@media (max-width: 1110px) {
   .footer .wrap02 {
-    justify-content: center;
-    gap: 10px;
-    margin-top: 50px;
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer .wrap03 {
-    margin-top: 15px;
-  }
-  .footer .wrap01 .group-a , .footer .wrap01 .group-b {
-    justify-content: center;
+    gap: 30px;
   }
 }
 
-@media (max-width: 768px) {
-  .footer .wrap01 {
-    justify-content: start;
+@media (max-width: 820px) {
+  .footer .wrap01 .box-b {
+    margin-left: 45px;
   }
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
   .footer {
     padding: 30px 20px;
   }
@@ -217,14 +194,13 @@
   .footer .wrap01 {
     border-radius: 10px;
     gap: 20px;
-    padding: 20px;
+    padding: 35px 20px;
   }
   .footer .wrap02 {
     justify-content: flex-start;
     margin-top: 30px;
     gap: 10px;
     flex-direction: column;
-    align-items: start;
   }
   .footer .wrap02 .group-a,
   .footer .wrap02 .group-b {
