@@ -1,6 +1,12 @@
 <template>
+  <!-- todo: 도메인 견결위해 임시 팝업배치. 최종적으로 지우기 -->
+ 
   <!-- 컨텐츠 섹션 -->
   <main class="sub">
+
+
+    <Popup />
+
     <!-- 타이틀 배경 -->
     <div class="subTitle-box">        
       <h1 class="subTitle">모집요강</h1>
@@ -238,6 +244,7 @@
 </template>
 
 <script setup>
+import Popup from '~/components/Popup.vue'
 // 더미데이터
 const data = ref({
   title: '제1회 뉴스피릿 미술 공모전',
