@@ -58,16 +58,13 @@
   
   
     </main>
-  </template>
+</template>
   
-  <script setup>
-  </script>
-  
-  <style scoped>
-    .mt-50 {
-        margin-top: 50px;
-    }
-    @media (max-width: 768px) {
+<style scoped>
+  .mt-50 {
+      margin-top: 50px;
+  }
+  @media (max-width: 768px) {
     .f-18 {
       font-size: 16px;
     }
