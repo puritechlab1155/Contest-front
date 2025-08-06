@@ -30,7 +30,7 @@
               <div class="term-header" @click="toggle(index)">
                 <strong class="strong">{{ item.title }}</strong>
                 <div class="circle">
-                  <svg
+                  <svg 
                     v-if="opened[index]"
                     width="24"
                     height="24"
@@ -338,7 +338,7 @@ const handleNext = () => {
 
 .term-item {
   /* border-bottom: 1px solid #ddd; */
-  padding: 20px 0;
+  padding: 30px 0;
 }
 
 .term-header {
@@ -363,8 +363,8 @@ const handleNext = () => {
 
 .term-scroll {
   max-height: 300px;
-  overflow-y: auto;
-  background: #fff;
+  overflow-y: scroll;
+  /* background: #fff; */
   padding: 10px;
   /* border: 1px solid #ccc; */
   margin-bottom: 10px;
@@ -398,18 +398,18 @@ const handleNext = () => {
 }
 :deep(.term-content ul) {
   padding-left: 1.5em; 
-  margin: 0.5em 0 1em;
   list-style-type: disc;
   color: #5D5D5D;
 }
 
 :deep(.term-content ul ul) {
+  font-size: 18px;
   list-style-type: disc;
   padding-left: 1.5em;
-  margin-top: 0.3em;
 }
 
 :deep(.term-content li) {
+  font-size: 18px;
   color: #5D5D5D;
 }
 /* :deep(.term-content ul li::before) {
@@ -418,6 +418,7 @@ const handleNext = () => {
   color: #5D5D5D;
 } */
 :deep(.term-content p) {
+  font-size: 18px;
   margin: 0.5em 0;
   color: #5D5D5D;
 }
@@ -442,7 +443,7 @@ const handleNext = () => {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  margin-right: 6px;
+  margin-right: 10px;
   width: 22px;
   height: 22px;
   border: 1px solid #5D5D5D;
@@ -493,7 +494,7 @@ const handleNext = () => {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  margin-right: 6px;
+  margin-right: 10px;
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -568,9 +569,6 @@ const handleNext = () => {
   .box {
     padding: 10px 20px;
   }
-  .term-radio {
-    margin-top: 10px;
-  }
   .term-all {
     padding: 10px 20px;
   }
@@ -585,6 +583,12 @@ const handleNext = () => {
   :deep(.term-content h3) {
     font-size: 16px;
   }
+  :deep(.term-content li) {
+    font-size: 16px;
+  }
+  :deep(.term-content p) {
+    font-size: 16px;
+  }
   .strong {
     font-size: 18px;
   }
@@ -596,6 +600,13 @@ const handleNext = () => {
   }
   .term-radio label {
     font-size: 16px;
+  }
+  .circle {
+    padding: 8px;
+  }
+  .circle svg {
+    width: 18px;
+    height: 18px;
   }
 }
 

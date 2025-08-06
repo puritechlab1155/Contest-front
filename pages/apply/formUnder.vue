@@ -51,7 +51,28 @@
                   <label class="label">본인 연락처</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <input type="text" v-model="formData.phone" placeholder="01012345678" />
+                <input type="text" v-model="formData.phone" placeholder="01012345678" @input="formData.phone = formData.phone.replace(/[^0-9]/g, '')"
+                />
+              </div>
+              <!-- 보호자 성함 -->
+              <div class="form-group">
+                <div class="form-label-wrap">
+                  <label class="label required">보호자 성함</label>
+                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <input type="text" v-model="formData.guardianName" placeholder="보호자 성함을 입력해주세요."/>
+              </div>
+
+
+              <!-- 보호자 연락처 -->
+              <div class="form-group">
+                <div class="form-label-wrap">
+                  <label class="label required">보호자 연락처</label>
+                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div>
+                <input type="text" v-model="formData.guardianPhone" placeholder="01012345678"
+                @input="formData.phone = formData.phone.replace(/[^0-9]/g, '')"
+                />
               </div>
 
               <!-- 보호자 관계 -->
@@ -72,27 +93,10 @@
                       v-model="formData.guardianRelationEtc"
                       class="inline-input"
                       placeholder="입력해주세요"
+                      
                     />
                   </label>
                 </div>
-              </div>
-
-              <!-- 보호자 연락처 -->
-              <div class="form-group">
-                <div class="form-label-wrap">
-                  <label class="label required">보호자 연락처</label>
-                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-                <input type="text" v-model="formData.guardianPhone" placeholder="01012345678"/>
-              </div>
-
-              <!-- 보호자 성함 -->
-              <div class="form-group">
-                <div class="form-label-wrap">
-                  <label class="label required">보호자 성함</label>
-                  <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-                <input type="text" v-model="formData.guardianName" placeholder="보호자 성함을 입력해주세요."/>
               </div>
 
               <!-- 이메일 인증 -->
@@ -104,7 +108,16 @@
                   </div>
                   <div class="email-auth">
                     <input type="email" v-model="formData.email" placeholder="이메일 주소" />
-                    <button type="button" class="btn01 white certi" @click="sendCode"><span>인증코드 전송</span></button>
+                    <button
+                      type="button"
+                      class="btn01 white certi"
+                      @click="handleAuthButtonClick"
+                      :disabled="emailVerified"
+                    >
+                      <span>
+                        {{ isCodeSent && !emailVerified ? '인증코드 확인' : '인증코드 전송' }}
+                      </span>
+                    </button>
                   </div>
                 </div>
                 <div class="form-group">
@@ -116,7 +129,14 @@
                     <input style="max-width: 528px" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
                     <div class="caution">
                       <ul>
-                        <li>접수 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</li>
+                        <li v-if="isWaiting">
+                          인증 코드는 <strong style="color: #FF5972;">{{ remainingTime }}초</strong> 동안 유효합니다. <br/>
+                          코드를 입력하신 후 <strong style="color: #FF5972;">‘인증코드 확인’</strong>을 눌러 인증을 완료해 주세요.
+                        </li>
+                        <li v-else-if="emailVerified" class="bold">
+                          이메일 인증이 완료되었습니다.
+                        </li>
+                        <li>신청내역 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</li>
                       </ul>
                     </div>
                   </div>
@@ -136,25 +156,29 @@
 
               <!-- 작품 사진 -->
               <div class="form-group align-up">
-                <div class="form-label-wrap">
+                <div class="form-label-wrap h-45">
                   <label class="label required">작품 사진</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white"><span>파일 추가</span></button>
-                <div class="file-wrap">
-                  <div v-if="workImagePreview" class="preview-container">
-                    <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />
+                <div class="column">
+                  <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white">
+                    <span>{{ workImageFileName ? '파일 수정' : '파일 추가' }}</span>
+                  </button>
+                  <div class="file-wrap">
+                    <div v-if="workImagePreview" class="preview-container">
+                      <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />
+                    </div>
+                    <div v-if="workImageFileName" class="file-name">{{ workImageFileName }}
+                      <button class="remove-button" @click="removeWorkImage">×</button>
+                    </div>
+                    <input
+                      ref="workImageInput"
+                      type="file"
+                      accept="image/*"
+                      @change="handleWorkImageChange"
+                      style="display:none"
+                    />
                   </div>
-                  <div v-if="workImageFileName" class="file-name">{{ workImageFileName }}
-                    <button class="remove-button" @click="removeWorkImage">×</button>
-                  </div>
-                  <input
-                    ref="workImageInput"
-                    type="file"
-                    accept="image/*"
-                    @change="handleWorkImageChange"
-                    style="display:none"
-                  />
                 </div>
               </div>
 
@@ -173,7 +197,7 @@
                   <label class="label required">작품 설명</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <textarea class="textarea" v-model="formData.workDescription" placeholder="작품에 대한 설명을 입력해주세요." style="height: 500px;"></textarea>
+                <textarea class="textarea" v-model="formData.workDescription" placeholder="작품에 대한 설명을 입력해주세요."></textarea>
               </div>
             </form>
           </div>
@@ -198,14 +222,14 @@
             :disabled="!allChecked"
             @click="submitForm"
           >
-            <span>다음</span>
-        </BtnBlack>
+            <span>접수하기</span>
+          </BtnBlack>
         </div>
       </section>
 
     </div>
 
-    <div class="form-display" style="background-color: aqua; padding: 50px; font-size: 18px;">
+    <!-- <div class="form-display" style="background-color: aqua; padding: 50px; font-size: 18px;">
       <p>카테고리: {{ formData.category }}</p>
       <p>이름: {{ formData.name }}</p>
       <p>전화번호: {{ formData.phone }}</p>
@@ -215,11 +239,13 @@
       <p>보호자 이름: {{ formData.guardianName }}</p>
       <p>이메일: {{ formData.email }}</p>
       <p>인증코드: {{ formData.authCode }}</p>
-      <!-- <p>신청서 파일: {{ formData.applicationFile ? formData.applicationFile.name : '없음' }}</p> -->
       <p>작품 이미지: {{ formData.workImage ? formData.workImage.name : '없음' }}</p>
       <p>작품 제목: {{ formData.workTitle }}</p>
       <p>작품 설명: {{ formData.workDescription }}</p>
-    </div>
+      <p>agree: {{ formData.agree }}</p>
+      <p>workImage: {{ formData.workImage ? '있음' : '없음' }}</p>
+    </div> -->
+
   </main>
 
 
@@ -232,22 +258,76 @@ import { useRuntimeConfig, useCookie, useRouter } from '#imports'
 
 const router = useRouter()
 
-const emailAuthSent = ref(false)
+const isCodeSent = ref(false)        // 코드가 전송되었는지
+const isWaiting = ref(false)         // 타이머 진행 중인지
+const remainingTime = ref(0)         // 남은 시간
+const emailVerified = ref(false)      // 인증 완료 여부
+let timerInterval = null             // 타이머 인터벌 핸들
 
-// 이메일 인증 코드 전송
-const sendCode = () => {
-  if (!formData.value.email) {
-    return Swal.fire('이메일을 입력해주세요.', '', 'warning')
-  }
+const config = useRuntimeConfig()
+const token = useCookie('auth_token').value
 
-  if (!emailAuthSent.value) {
-    // 첫 인증코드 발송
-    emailAuthSent.value = true
-    Swal.fire('인증 코드가 전송되었습니다.', '이메일을 확인해주세요.', 'success')
-  } else {
-    // 인증코드 입력 후 확인 버튼 누름
-    if (formData.value.authCode === '123456') { // 예시
+// 이메일 유효성 검사
+function validateEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return regex.test(email)
+}
+
+// 실제 인증코드 확인 (테스트용)
+async function verifyCode(email, code) {
+  console.log('인증 확인 시도 →', email, code)
+  return true  // 항상 통과 (테스트용)
+}
+
+// 타이머 시작
+function startTimer() {
+  isWaiting.value = true
+  remainingTime.value = 60
+  timerInterval = setInterval(() => {
+    remainingTime.value--
+    if (remainingTime.value <= 0) {
+      stopTimer()
+      isCodeSent.value = false
+    }
+  }, 1000)
+}
+
+// 타이머 중지
+function stopTimer() {
+  clearInterval(timerInterval)
+  isWaiting.value = false
+  remainingTime.value = 0
+}
+
+// 인증 코드 전송 함수
+async function sendCode() {
+  Swal.fire('인증 코드가 전송되었습니다.', '이메일을 확인해주세요.', 'success')
+  isCodeSent.value = true
+  startTimer()
+}
+
+// 인증 버튼 클릭 핸들러 (전송 또는 확인)
+async function handleAuthButtonClick() {
+  if (!isCodeSent.value) {
+    // 1단계: 코드 전송
+    if (!validateEmail(formData.value.email)) {
+      Swal.fire('유효한 이메일을 입력해주세요.', '', 'warning')
+      return
+    }
+
+    await sendCode()
+  } else if (!emailVerified.value) {
+    // 2단계: 인증코드 확인
+    if (!formData.value.authCode) {
+      Swal.fire('인증코드를 입력해주세요.', '', 'warning')
+      return
+    }
+
+    const isValid = await verifyCode(formData.value.email, formData.value.authCode)
+
+    if (isValid) {
       emailVerified.value = true
+      stopTimer()
       Swal.fire('이메일 인증이 완료되었습니다.', '', 'success')
     } else {
       Swal.fire('인증 코드가 일치하지 않습니다.', '', 'error')
@@ -334,20 +414,24 @@ const formData = ref({
 
 
 // 제출 처리
-const emailVerified = ref(false) // 이메일 인증 여부
 const allChecked = computed(() => {
   const d = formData.value
+
+  const isGuardianRelationValid =
+    d.guardianRelation &&
+    (d.guardianRelation !== 'other' || d.guardianRelationEtc.trim() !== '')
+
   return (
     d.category &&
-    d.name &&
-    (!d.phone || /^\d{10,11}$/.test(d.phone)) &&
+    d.name.trim() &&
     d.guardianRelation &&
-    d.guardianName &&
-    d.email &&
+    d.guardianName.trim() &&
+    d.guardianPhone.trim() &&
+    d.email.trim() &&
     emailVerified.value &&
     d.workImage &&
-    d.workTitle &&
-    d.workDescription &&
+    d.workTitle.trim() &&
+    d.workDescription.trim() &&
     d.agree
   )
 })
@@ -355,84 +439,56 @@ const allChecked = computed(() => {
 async function submitForm() {
   const d = formData.value
 
-  if (!d.category) {
-    return Swal.fire('참가 부문을 선택해주세요.', '', 'warning')
-  }
-
-  if (!d.name) {
-    return Swal.fire('참가자 성명을 입력해주세요.', '', 'warning')
-  }
 
   if (d.phone && !/^\d{10,11}$/.test(d.phone)) {
     return Swal.fire('본인 연락처는 숫자만 10~11자리로 입력해주세요.', '', 'warning')
   }
 
-  if (!d.guardianRelation) {
-    return Swal.fire('보호자 관계를 선택해주세요.', '', 'warning')
+
+  if (d.guardianPhone && !/^\d{10,11}$/.test(d.guardianPhone)) {
+    return Swal.fire('보호자 연락처는 숫자만 10~11자리로 입력해주세요.', '', 'warning')
   }
 
-  if (!d.guardianName) {
-    return Swal.fire('보호자 성함을 입력해주세요.', '', 'warning')
-  }
-
-  if (!d.email) {
-    return Swal.fire('이메일을 입력해주세요.', '', 'warning')
-  }
 
   if (!emailVerified.value) {
     return Swal.fire('이메일 인증을 완료해주세요.', '', 'warning')
   }
 
-  if (!d.workImage) {
-    return Swal.fire('작품 사진을 첨부해주세요.', '', 'warning')
+  if (d.guardianRelation === 'other' && !d.guardianRelationEtc.trim()) {
+    return Swal.fire('기타 보호자 관계를 입력해주세요.', '', 'warning')
   }
-
-  if (!d.workTitle) {
-    return Swal.fire('작품명을 입력해주세요.', '', 'warning')
-  }
-
-  if (!d.workDescription) {
-    return Swal.fire('작품 설명을 입력해주세요.', '', 'warning')
-  }
-
-  if (!d.agree) {
-    return Swal.fire('보호자 동의를 체크해주세요.', '', 'warning')
-  }
-
   // 모든 유효성 통과 → API 전송
   try {
-    const config = useRuntimeConfig()
-    const token = useCookie('auth_token').value
 
-    const payload = new FormData()
-    for (const key in d) {
-      payload.append(key, d[key])
-    }
+    // const payload = new FormData()
+    // for (const key in d) {
+    //   payload.append(key, d[key])
+    // }
 
-    const { data, error } = await useFetch('/api/register', {
-      baseURL: config.public.backendUrl,
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: payload,
-    })
+    // const { data, error } = await useFetch('/api/register', {
+    //   baseURL: config.public.backendUrl,
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: payload,
+    // })
 
-    if (error.value) {
-      return Swal.fire('접수 중 오류가 발생했습니다.', '잠시 후 다시 시도해주세요.', 'error')
-    }
+    // if (error.value) {
+    //   return Swal.fire('접수 중 오류가 발생했습니다.', '잠시 후 다시 시도해주세요.', 'error')
+    // }
 
     // 접수 완료 안내창
     const result = await Swal.fire({
       title: '접수가 완료되었습니다.',
       html: `
-        접수번호는 <strong>25Aa001</strong>입니다.<br><br>
-        추후 결과 발표 시,<br>
-        해당 접수번호로 확인이 가능합니다.
+        접수번호는 <strong style="color: #B31C45; font-size: 18px;">25Aa001</strong>입니다.<br><br>
+        <span style="color: #B31C45; font-size: 16px;">추후 결과 발표 시,<br>
+        해당 접수번호로 확인이 가능합니다.</span>
       `,
       icon: 'success',
       confirmButtonText: '접수 확인하기',
-      confirmButtonColor: '#000',
+      confirmButtonColor: '#222',
     })
 
     if (result.isConfirmed) {
@@ -477,7 +533,7 @@ async function submitForm() {
 
 .form-group .label {
   flex-shrink: 0;
-  width: 120px; 
+  width: 115px; 
   font-size: 18px;
   font-weight: 600;
 }
@@ -490,6 +546,9 @@ async function submitForm() {
 .form-label-wrap {
   display: flex;
   align-items: center;
+}
+.form-label-wrap.h-45 {
+  height: 45px;
 }
 
 .form-group input,
@@ -514,8 +573,8 @@ async function submitForm() {
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: #d1446a;  
-  outline: none;          /* 기본 파란색 외곽선 제거 */
-  box-shadow: 0 0 5px rgba(199, 147, 161, 0.5); /* 약간 그림자 효과 */
+  outline: none;  
+  box-shadow: 0 0 5px rgba(199, 147, 161, 0.5); 
 }
 
 .form-group input::placeholder,
@@ -538,11 +597,10 @@ async function submitForm() {
   flex-wrap: wrap;
 }
 .radio-group.ect1 {
-  height: 50px;
+  min-height: 50px;
 }
 
 .radio-group label {
-  /* width: auto; */
   font-weight: 400;
   color: #5D5D5D;
   display: inline-flex;
@@ -588,21 +646,22 @@ async function submitForm() {
   border: 1px solid #B31C45;
 }
 .file-button {
-  padding: 10px 30px;
   cursor: pointer;
-  font-size: 18px;
   white-space: nowrap;
   font-weight: 400;
   font-size: 16px;
+  display: inline-block;
+  width: auto;
 }
-/* .file-button:hover {
-  background-color: #901737;
-} */
+.file-button span {
+  font-size: 18px;
+}
+
 .file-name {
   margin-left: 16px;
   font-weight: 400;
   background-color: #EFEFEF;
-  padding: 12px 30px;
+  padding: 12px 20px;
   border: 1px solid #D9D9D9;
   color: #5D5D5D;
   font-size: 14px;
@@ -611,16 +670,21 @@ async function submitForm() {
   display: flex;
   align-items: flex-end;
 }
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
 .preview-container {
-  width: 220px;     /* 원하는 너비 */
-  height: 160px;    /* 원하는 높이 */
+  width: 220px;     
+  height: 160px;   
   border: 1px solid #D9D9D9;
-  overflow: hidden; /* 이미지가 넘칠 때 숨김 처리 */
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fafafa;
-  margin-left: 20px;
+  margin-top: 10px;
 }
 .preview-image {
   max-width: 100%;
@@ -652,12 +716,6 @@ async function submitForm() {
   margin-bottom: 10px;
 }
 
-.certi {
-  /* border: 1px solid #D9D9D9; */
-  padding: 10px 30px;
-  font-weight: 400;
-  z-index: 10px;
-}
 /* .tip {
   font-size: 16px;
   color: #FF5972;
@@ -704,21 +762,6 @@ async function submitForm() {
   background: #B31C45;
 }
 
-
-/* .info-wrap input.mx-700 {
-  max-width: 700px !important;
-} */
-
-.btn-wrap {
-  width: 100%;
-  text-align: center;
-  padding-bottom: 50px;
-  position: sticky;
-  bottom: 0 !important;
-  z-index: 100px;
-}
-
-
 .remove-button {
   background-color: #ACACAC;
   color: #EFEFEF;
@@ -734,16 +777,14 @@ async function submitForm() {
   padding-right: 0.5px;
 }
 .form-group .textarea {
-  height: 500px !important;
+  height: 300px;
   overflow-y: auto;   
-  resize: none; 
-  box-sizing: content-box;        
+  resize: none;  
 }
 /* .dot ul {
   padding-left: 20px;  
   list-style-type: dot; 
 }
-
 .dot li {
   color: #5D5D5D;
   font-size: 16px;
@@ -763,7 +804,7 @@ async function submitForm() {
   line-height: 150%;
 }
 .dot li::before {
-  content: '· ';
+  content: '• ';
 }
 
 .confirm {
@@ -777,8 +818,12 @@ async function submitForm() {
 
 
 @media (max-width: 768px) {
-  .form-group.align-up2{
-    align-items: start;
+  .box {
+    padding: 20px;
+  }
+  .apply-form {
+    margin-top: 20px;
+    gap: 20px;
   }
   .form-group {
     flex-direction: column;
@@ -789,7 +834,11 @@ async function submitForm() {
     font-size: 16px;
     width: 100px;
   }
-
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 16px;
+  }
   .radio-group label {
     font-size: 16px;
   }
@@ -797,9 +846,6 @@ async function submitForm() {
     width: 18px;
     height: 18px;
   }
-  /* .bold {
-    display: none;
-  } */
   .preview-container {
     margin-left: 0px;
     padding: 10px;
@@ -807,26 +853,22 @@ async function submitForm() {
   .file-name {
     margin-left: 0px;
     padding: 10px;
-  }
-  .box {
-    padding: 20px;
   }
   .file-button {
     width: 100%;
   }
+  .file-button span {
+    font-size: 16px;
+  }
   .preview-container {
     width: 100%;
   }
-  .file-name {
+  .file-name, .column {
     width: 100%;
   }
-  .apply-form {
-    margin-top: 20px;
-    gap: 20px;
-  }
-  .certi {
-    padding: 12px 15px;
+  .certi span {
     font-size: 16px;
+    padding: 0 10px;
   }
   .file-wrap {
     flex-direction: column;
@@ -844,12 +886,6 @@ async function submitForm() {
     padding-bottom: 1px;
     padding-right: 0.2px;
   }
-  .custom {
-    width: 100vw;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding: 15px 0px;
-  }
   .form-group input::placeholder,
   .form-group textarea::placeholder,
   .form-group select::placeholder {
@@ -857,9 +893,6 @@ async function submitForm() {
   }
   .form-label-wrap.one{
     display: none;
-  }
-  .btn-wrap {
-    padding-bottom: 0;
   }
   .confirm {
     font-size: 16px;
@@ -871,6 +904,11 @@ async function submitForm() {
   .dot li {
     font-size: 16px;
   }
+  /* .form-group .textarea {
+    height: 300px;
+    overflow-y: auto;   
+    resize: none;  
+  } */
 }
 
 </style> 

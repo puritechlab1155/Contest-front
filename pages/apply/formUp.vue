@@ -48,10 +48,11 @@
               <!-- 본인 연락처 -->
               <div class="form-group">
                 <div class="form-label-wrap">
-                  <label class="label required">본인 연락처</label>
+                  <label class="label">본인 연락처</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <input type="text" v-model="formData.phone" placeholder="01012345678" />
+                <input type="text" v-model="formData.phone" placeholder="01012345678" @input="formData.phone = formData.phone.replace(/[^0-9]/g, '')"
+                />
               </div>
 
               <!-- 이메일 인증 -->
@@ -63,7 +64,16 @@
                   </div>
                   <div class="email-auth">
                     <input type="email" v-model="formData.email" placeholder="이메일 주소" />
-                    <button type="button" class="btn01 white certi" @click="sendCode"><span>인증코드 전송</span></button>
+                    <button
+                      type="button"
+                      class="btn01 white certi"
+                      @click="handleAuthButtonClick"
+                      :disabled="emailVerified"
+                    >
+                      <span>
+                        {{ isCodeSent && !emailVerified ? '인증코드 확인' : '인증코드 전송' }}
+                      </span>
+                    </button>
                   </div>
                 </div>
                 <div class="form-group">
@@ -72,10 +82,17 @@
                     <span class="bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   </div>
                   <div class="info-wrap">
-                    <input class="mx-700" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
+                    <input style="max-width: 528px" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
                     <div class="caution">
                       <ul>
-                        <li>접수 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</li>
+                        <li v-if="isWaiting">
+                          인증 코드는 <strong style="color: #FF5972;">{{ remainingTime }}초</strong> 동안 유효합니다. <br/>
+                          코드를 입력하신 후 <strong style="color: #FF5972;">‘인증코드 확인’</strong>을 눌러 인증을 완료해 주세요.
+                        </li>
+                        <li v-else-if="emailVerified" class="bold">
+                          이메일 인증이 완료되었습니다.
+                        </li>
+                        <li>신청내역 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</li>
                       </ul>
                     </div>
                   </div>
@@ -88,32 +105,36 @@
                   <label class="label required">원서 파일</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerApplicationFileInput" class="file-button btn01 white">파일 선택</button>
+                <button type="button" @click="triggerApplicationFileInput" class="file-button btn01 white">파일 추가</button>
                 <span class="file-name" v-if="applicationFileName">{{ applicationFileName }}<button class="remove-button" @click="removeApplicationFile">×</button></span>
                 <input ref="applicationFileInput" type="file" @change="handleApplicationFileChange" style="display:none" />
               </div> -->
 
               <!-- 작품 사진 -->
               <div class="form-group align-up">
-                <div class="form-label-wrap">
+                <div class="form-label-wrap h-45">
                   <label class="label required">작품 사진</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white"><span>파일 추가</span></button>
-                <div class="file-wrap">
-                  <div v-if="workImagePreview" class="preview-container">
-                    <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />
+                <div class="column">
+                  <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white">
+                    <span>{{ workImageFileName ? '파일 수정' : '파일 추가' }}</span>
+                  </button>
+                  <div class="file-wrap">
+                    <div v-if="workImagePreview" class="preview-container">
+                      <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />
+                    </div>
+                    <div v-if="workImageFileName" class="file-name">{{ workImageFileName }}
+                      <button class="remove-button" @click="removeWorkImage">×</button>
+                    </div>
+                    <input
+                      ref="workImageInput"
+                      type="file"
+                      accept="image/*"
+                      @change="handleWorkImageChange"
+                      style="display:none"
+                    />
                   </div>
-                  <div v-if="workImageFileName" class="file-name">{{ workImageFileName }}
-                    <button class="remove-button" @click="removeWorkImage">×</button>
-                  </div>
-                  <input
-                    ref="workImageInput"
-                    type="file"
-                    accept="image/*"
-                    @change="handleWorkImageChange"
-                    style="display:none"
-                  />
                 </div>
               </div>
 
@@ -132,68 +153,139 @@
                   <label class="label required">작품 설명</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <textarea v-model="formData.workDescription" placeholder="작품에 대한 설명을 입력해주세요."></textarea>
+                <textarea class="textarea" v-model="formData.workDescription" placeholder="작품에 대한 설명을 입력해주세요."></textarea>
               </div>
             </form>
           </div>
         </div>      
         <div class="btn-wrap">
           <BtnBlack
-            :label="'제출'"
             :disabled="!allChecked"
-            @click="handleNext"
-          />
+            @click="submitForm"
+          >
+            <span>접수하기</span>
+          </BtnBlack>
         </div>
       </section>
 
     </div>
-
+    <!-- <div class="form-display" style="background-color: aqua; padding: 50px; font-size: 18px;">
+      <p>카테고리: {{ formData.category }}</p>
+      <p>이름: {{ formData.name }}</p>
+      <p>전화번호: {{ formData.phone }}</p>
+      <p>이메일: {{ formData.email }}</p>
+      <p>인증코드: {{ formData.authCode }}</p>
+      <p>작품 이미지: {{ formData.workImage ? formData.workImage.name : '없음' }}</p>
+      <p>작품 제목: {{ formData.workTitle }}</p>
+      <p>작품 설명: {{ formData.workDescription }}</p>
+      <p>agree: {{ formData.agree }}</p>
+      <p>workImage: {{ formData.workImage ? '있음' : '없음' }}</p>
+    </div> -->
 
   </main>
 </template>
 
 <script setup>
 
-// 원서 파일 상태
-const applicationFileInput = ref(null)
-const applicationFileName = ref('')
+import Swal from 'sweetalert2'
+import { useRuntimeConfig, useCookie, useRouter } from '#imports'
+
+const router = useRouter()
+
+const isCodeSent = ref(false)        // 코드가 전송되었는지
+const isWaiting = ref(false)         // 타이머 진행 중인지
+const remainingTime = ref(0)         // 남은 시간
+const emailVerified = ref(false)      // 인증 완료 여부
+let timerInterval = null             // 타이머 인터벌 핸들
+
+const config = useRuntimeConfig()
+const token = useCookie('auth_token').value
+
+// 이메일 유효성 검사
+function validateEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return regex.test(email)
+}
+
+// 실제 인증코드 확인 (테스트용)
+async function verifyCode(email, code) {
+  console.log('인증 확인 시도 →', email, code)
+  return true  // 항상 통과 (테스트용)
+}
+
+// 타이머 시작
+function startTimer() {
+  isWaiting.value = true
+  remainingTime.value = 60
+  timerInterval = setInterval(() => {
+    remainingTime.value--
+    if (remainingTime.value <= 0) {
+      stopTimer()
+      isCodeSent.value = false
+    }
+  }, 1000)
+}
+
+// 타이머 중지
+function stopTimer() {
+  clearInterval(timerInterval)
+  isWaiting.value = false
+  remainingTime.value = 0
+}
+
+// 인증 코드 전송 함수
+async function sendCode() {
+  Swal.fire('인증 코드가 전송되었습니다.', '이메일을 확인해주세요.', 'success')
+  isCodeSent.value = true
+  startTimer()
+}
+
+// 인증 버튼 클릭 핸들러 (전송 또는 확인)
+async function handleAuthButtonClick() {
+  if (!isCodeSent.value) {
+    // 1단계: 코드 전송
+    if (!validateEmail(formData.value.email)) {
+      Swal.fire('유효한 이메일을 입력해주세요.', '', 'warning')
+      return
+    }
+
+    await sendCode()
+  } else if (!emailVerified.value) {
+    // 2단계: 인증코드 확인
+    if (!formData.value.authCode) {
+      Swal.fire('인증코드를 입력해주세요.', '', 'warning')
+      return
+    }
+
+    const isValid = await verifyCode(formData.value.email, formData.value.authCode)
+
+    if (isValid) {
+      emailVerified.value = true
+      stopTimer()
+      Swal.fire('이메일 인증이 완료되었습니다.', '', 'success')
+    } else {
+      Swal.fire('인증 코드가 일치하지 않습니다.', '', 'error')
+    }
+  }
+}
 
 // 작품 사진 상태
 const workImageInput = ref(null)
 const workImageFileName = ref('')
 const workImagePreview = ref('')
 
-// 버튼 클릭 트리거 함수 구분
-function triggerApplicationFileInput() {
-  applicationFileInput.value.click()
-}
 
 function triggerWorkImageInput() {
   workImageInput.value.click()
-}
-
-
-function removeApplicationFile() {
-  applicationFileName.value = ''
-  formData.value.applicationFile = null
-  applicationFileInput.value.value = null // input 초기화
 }
 
 function removeWorkImage() {
   workImageFileName.value = ''
   workImagePreview.value = ''
   formData.value.workImage = null
-  workImageInput.value.value = null // input 초기화
+  workImageInput.value.value = null
 }
 
-// api 전송 초기화
-function handleApplicationFileChange(event) {
-  const file = event.target.files[0]
-  if (file) {
-    applicationFileName.value = file.name
-    formData.value.applicationFile = file
-  }
-}
 
 // api 전송 초기화
 function handleWorkImageChange(event) {
@@ -205,49 +297,100 @@ function handleWorkImageChange(event) {
   }
 }
 
-
 const formData = ref({
   category: '',
   name: '',
   phone: '',
   email: '',
   authCode: '',
-  applicationFile: null,
   workImage: null,
   workTitle: '',
-  workDescription: ''
+  workDescription: '',
+  agree: false,
 })
 
-// const handleFileChange = (event, key) => {
-//   const file = event.target.files[0]
-//   if (file) {
-//     formData.value[key] = file
-//   }
-// }
 
-// 이메일 인증 코드 전송
-const sendCode = () => {
-  // TODO: 이메일 인증 코드 API 호출
-  console.log('인증코드 전송:', formData.value.email)
-}
 
 // 제출 처리
-const submitForm = () => {
-  // 예시: FormData 사용
-  const payload = new FormData()
-  for (const key in formData.value) {
-    payload.append(key, formData.value[key])
+const allChecked = computed(() => {
+  const d = formData.value
+
+  return (
+    d.category &&
+    d.name.trim() &&
+    d.phone.trim() &&
+    d.email.trim() &&
+    d.workImage &&
+    d.workTitle.trim() &&
+    d.workDescription.trim()
+  )
+})
+
+async function submitForm() {
+  const d = formData.value
+
+
+  if (d.phone && !/^\d{10,11}$/.test(d.phone)) {
+    return Swal.fire('본인 연락처는 숫자만 10~11자리로 입력해주세요.', '', 'warning')
   }
 
-  // TODO: API 호출만 하면 됨
-  console.log('제출 준비 완료:', formData.value)
 
-  // 예: axios.post('/api/submit', payload)
+  if (d.guardianPhone && !/^\d{10,11}$/.test(d.guardianPhone)) {
+    return Swal.fire('보호자 연락처는 숫자만 10~11자리로 입력해주세요.', '', 'warning')
+  }
+
+
+  if (!emailVerified.value) {
+    return Swal.fire('이메일 인증을 완료해주세요.', '', 'warning')
+  }
+
+  // 모든 유효성 통과 → API 전송
+  try {
+
+    // const payload = new FormData()
+    // for (const key in d) {
+    //   payload.append(key, d[key])
+    // }
+
+    // const { data, error } = await useFetch('/api/register', {
+    //   baseURL: config.public.backendUrl,
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: payload,
+    // })
+
+    // if (error.value) {
+    //   return Swal.fire('접수 중 오류가 발생했습니다.', '잠시 후 다시 시도해주세요.', 'error')
+    // }
+
+    // 접수 완료 안내창
+    const result = await Swal.fire({
+      title: '접수가 완료되었습니다.',
+      html: `
+        접수번호는 <strong style="color: #B31C45; font-size: 18px;">25Aa001</strong>입니다.<br><br>
+        <span style="color: #B31C45; font-size: 16px;">추후 결과 발표 시,<br>
+        해당 접수번호로 확인이 가능합니다.</span>
+      `,
+      icon: 'success',
+      confirmButtonText: '접수 확인하기',
+      confirmButtonColor: '#222',
+    })
+
+    if (result.isConfirmed) {
+      router.push('/apply/check')
+    }
+  } catch (e) {
+    console.error(e)
+    Swal.fire('알 수 없는 오류가 발생했습니다.', '', 'error')
+  }
 }
 
 </script>
 
 <style scoped>
+
 
 .box {
   background-color: #FAFAFA;
@@ -271,7 +414,7 @@ const submitForm = () => {
 
 .form-group .label {
   flex-shrink: 0;
-  width: 120px; 
+  width: 115px; 
   font-size: 18px;
   font-weight: 600;
 }
@@ -285,6 +428,9 @@ const submitForm = () => {
   display: flex;
   align-items: center;
 }
+.form-label-wrap.h-45{
+  height: 45px;
+}
 
 .form-group input,
 .form-group textarea,
@@ -294,7 +440,7 @@ const submitForm = () => {
   border: 1px solid #D9D9D9;
   font-size: 18px;
 }
-.form-group input{
+.form-group input {
   max-width: 360px;
 }
 
@@ -308,8 +454,8 @@ const submitForm = () => {
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: #d1446a;  
-  outline: none;          /* 기본 파란색 외곽선 제거 */
-  box-shadow: 0 0 5px rgba(199, 147, 161, 0.5); /* 약간 그림자 효과 */
+  outline: none;  
+  box-shadow: 0 0 5px rgba(199, 147, 161, 0.5); 
 }
 
 .form-group input::placeholder,
@@ -331,9 +477,11 @@ const submitForm = () => {
   align-items: center;
   flex-wrap: wrap;
 }
+.radio-group.ect1 {
+  min-height: 50px;
+}
 
 .radio-group label {
-  /* width: auto; */
   font-weight: 400;
   color: #5D5D5D;
   display: inline-flex;
@@ -379,20 +527,22 @@ const submitForm = () => {
   border: 1px solid #B31C45;
 }
 .file-button {
-  padding: 10px 30px;
   cursor: pointer;
-  font-size: 18px;
   white-space: nowrap;
   font-weight: 400;
+  font-size: 16px;
+  display: inline-block;
+  width: auto;
 }
-/* .file-button:hover {
-  background-color: #901737;
-} */
+.file-button span {
+  font-size: 18px;
+}
+
 .file-name {
   margin-left: 16px;
   font-weight: 400;
   background-color: #EFEFEF;
-  padding: 12px 30px;
+  padding: 12px 20px;
   border: 1px solid #D9D9D9;
   color: #5D5D5D;
   font-size: 14px;
@@ -401,16 +551,21 @@ const submitForm = () => {
   display: flex;
   align-items: flex-end;
 }
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
 .preview-container {
-  width: 220px;     /* 원하는 너비 */
-  height: 160px;    /* 원하는 높이 */
+  width: 220px;     
+  height: 160px;   
   border: 1px solid #D9D9D9;
-  overflow: hidden; /* 이미지가 넘칠 때 숨김 처리 */
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fafafa;
-  margin-left: 20px;
+  margin-top: 10px;
 }
 .preview-image {
   max-width: 100%;
@@ -444,8 +599,8 @@ const submitForm = () => {
 
 .certi {
   /* border: 1px solid #D9D9D9; */
-  padding: 10px 30px;
   font-weight: 400;
+  z-index: 10px;
 }
 /* .tip {
   font-size: 16px;
@@ -455,24 +610,6 @@ const submitForm = () => {
   margin-bottom: 0;
 }
 
-.btn-wrap {
-  width: 100%;
-  text-align: center;
-  padding-bottom: 50px;
-  position: sticky;
-  bottom: 0 !important;
-}
-
-.custom {
-  margin: 0 auto;
-  padding: 10px 80px;
-  margin-top: 50px;
-}
-.custom:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-  border: 1px solid #aaa;
-}
 
 .remove-button {
   background-color: #ACACAC;
@@ -488,17 +625,38 @@ const submitForm = () => {
   padding-bottom: 1.5px;
   padding-right: 0.5px;
 }
-textarea {
-  height: 300px;      
+
+.form-group .textarea {
+  height: 300px;
   overflow-y: auto;   
-  resize: none;        
+  resize: none;  
+  /* box-sizing: border-box; */
+}
+
+.dot {
+  margin-top: 20px;
+}
+.dot ul {
+  padding-left: 1.5em; 
+  margin: 0.5em 0 1em;
+}
+.dot li {
+  padding-left: 20px;
+  font-size: 18px;
+  color: #5D5D5D;
+  line-height: 150%;
+}
+.dot li::before {
+  content: '• ';
+}
+
+.bold {
+  font-size: 18px;
 }
 
 
+
 @media (max-width: 768px) {
-  .form-group.align-up2{
-    align-items: start;
-  }
   .form-group {
     flex-direction: column;
     align-items: flex-start;
@@ -508,6 +666,11 @@ textarea {
     font-size: 16px;
     width: 100px;
   }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 16px;
+  }
   .radio-group label {
     font-size: 16px;
   }
@@ -515,9 +678,6 @@ textarea {
     width: 18px;
     height: 18px;
   }
-  /* .bold {
-    display: none;
-  } */
   .preview-container {
     margin-left: 0px;
     padding: 10px;
@@ -532,10 +692,13 @@ textarea {
   .file-button {
     width: 100%;
   }
+  .file-button span {
+    font-size: 16px;
+  }
   .preview-container {
     width: 100%;
   }
-  .file-name {
+  .file-name, .column {
     width: 100%;
   }
   .apply-form {
@@ -543,7 +706,7 @@ textarea {
     gap: 20px;
   }
   .certi {
-    padding: 12px 15px;
+    font-size: 16px;
   }
   .file-wrap {
     flex-direction: column;
@@ -552,7 +715,7 @@ textarea {
   }
   .form-group input{
     width: 100%;
-    max-width: none;
+    max-width: none !important;
   }
   .email-auth {
     width: 100%;
@@ -560,12 +723,6 @@ textarea {
   .remove-button {
     padding-bottom: 1px;
     padding-right: 0.2px;
-  }
-  .custom {
-    width: 100vw;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding: 15px 0px;
   }
   .form-group input::placeholder,
   .form-group textarea::placeholder,
@@ -575,6 +732,25 @@ textarea {
   .form-label-wrap.one{
     display: none;
   }
+  .confirm {
+    font-size: 16px;
+    color: #5D5D5D;
+  }
+  .bold {
+    font-size: 16px;
+  }
+  .dot li {
+    font-size: 16px;
+  }
+  .certi span{
+    padding: 10px;
+  }
+  /* .form-group .textarea {
+    height: 300px;
+    overflow-y: auto;   
+    resize: none;  
+  } */
 }
+
 
 </style> 

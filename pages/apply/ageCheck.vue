@@ -166,7 +166,7 @@ const goToUpInfo = () => {
 .option-inner {
   font-size: 70px;
   font-weight: 600;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   min-width: 624px;
   max-width: 624px;
 }
@@ -240,6 +240,7 @@ const goToUpInfo = () => {
 @media (max-width: 1248px) {
   .option-inner {
     min-width: 0;
+    background-color: aquamarine;
   }
 }
 @media (max-width: 768px) {
