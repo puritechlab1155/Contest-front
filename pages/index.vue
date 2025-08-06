@@ -5,7 +5,7 @@
         <div class="contest-info">
           <div>
             <h1 class="main-title" style="white-space: nowrap;">제1회 뉴스피릿 미술 공모전</h1>
-            <div class="title-point" style="font-size: 65px; font-weight: 600; margin-top: 20px; margin-bottom: 10px; line-height: 130%;"> 미래의 스타, <br/>&nbsp;꿈꾸는 지구 </div>
+            <div class="title-point" style="font-size: 65px; font-weight: 400; margin-top: 20px; margin-bottom: 10px; line-height: 130%;"> 미래의 스타, <br/>&nbsp;꿈꾸는 지구 </div>
             <!-- <p class="date">2025.09.15(월) ~ 10.15(수)</p> -->
           </div>
           <p class="date" style="font-size: 30px; white-space: nowrap;">2025.09.15<span style="font-size: 20px;" class="date">(월)</span> ~ 10.15<span style="font-size: 20px;" class="date">(수)</span></p>
@@ -24,7 +24,9 @@
               <p class="sub">→ 주제를 창의적으로 해석하여, 자신만의 세계를 표현</p>
             </div>
           </div> -->
-          <button class="btn01 white" @click="goToGuide">모집요강 더보기</button>
+          <button class="btn01 white" @click="goToGuide">
+            <span>모집요강 더보기</span>
+          </button>
 
         </div>
         <div class="image-wrapper">
@@ -97,7 +99,9 @@ const goToGuide = () => {
 </script>
 
 <style scoped>
-
+.title-point{
+  font-family: 'NotoSerifKR';
+}
 
 .index .sec01 {
   max-width: 1440px;

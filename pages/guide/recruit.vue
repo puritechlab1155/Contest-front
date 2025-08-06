@@ -230,8 +230,8 @@
         
         <!-- 버튼 -->
         <div class="btn-wrap">
-          <BtnBlack>
-            <span>다음</span>
+          <BtnBlack @click="goToApply">
+            <span>접수 바로가기</span>
           </BtnBlack>
         </div>
 
@@ -245,6 +245,7 @@
 
 <script setup>
 import Popup from '~/components/Popup.vue'
+const router = useRouter()
 // 더미데이터
 const data = ref({
   title: '제1회 뉴스피릿 미술 공모전',
@@ -274,6 +275,10 @@ function downloadFile(url) {
   window.open(url, '_blank')
 }
 
+// 페이지 이동 함수
+function goToApply() {
+  router.push('/apply') 
+}
 
 
 

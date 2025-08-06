@@ -27,7 +27,7 @@
   padding-top: clamp(20px, 5vw, 70px);
 }
 .sub .subTitle-box {
-  background-image: url(../img/common/subBg.jpg);
+  background-image: url(../images/common/subBg.jpg);
   background-repeat: no-repeat;
   background-position: center;
   min-height: 350px;
@@ -66,7 +66,7 @@
   background-color: #FEFEFE;
   margin-top: -100px;
   width: 100%;
-  background-image: url(../img/common/subContentBg.png);
+  background-image: url(../images/common/subContentBg.png);
   background-repeat: no-repeat;
   background-position: bottom right;
   background-size: contain;
@@ -97,7 +97,8 @@
   position: absolute;
   left: 0;
   color: #FF5972; /* 원하는 색상 */
-  font-size: 16px;
+  font-family: 'Pretendard';
+  line-height: 1.6;
 }
 
 
@@ -127,7 +128,7 @@
     padding: 30px 20px 50px 20px;
   }
   .sub .subTitle-box {
-    background-image: url(../img/common/subBgMob.jpg);
+    background-image: url(../images/common/subBgMob.jpg);
     min-height: 210px;
   }
   .sub .subTitle-box .subTitle {

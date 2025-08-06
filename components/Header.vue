@@ -44,7 +44,9 @@
             </div>
 
             <!-- 버튼 -->
-            <button class="btn01 black pc" @click="goToApply">접수 바로가기</button>
+            <button class="btn01 black pc" @click="goToApply">
+              <span>접수 바로가기</span>
+            </button>
           </nav>
           <div 
             class="submenu-box" 
@@ -74,7 +76,9 @@
         :style="{ transform: offcanvasOpenActive ? 'translateX(0%)' : 'translateX(100%)', height: offcanvasOpenActive ? '100vh' : 'auto' }"
       >
         <div class="offcanvas-body">
-          <button class="btn01 black mobile" @click="goToApply">접수 바로가기</button>
+          <button class="btn01 black mobile" @click="goToApply">
+            <span>접수 바로가기</span>
+          </button>
           <nav id="nav" class="nav-mobile">
             <ul class="gnb-mobile">
               <li 
@@ -404,7 +408,7 @@ onBeforeUnmount(() => {
 
 .header .submenu-a:hover {
   font-weight: 700;
-  color: #222222;
+  color: #F4313F;
 }
 
 .submenu.show {
