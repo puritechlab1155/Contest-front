@@ -11,9 +11,9 @@
       <!-- 네비게이션 -->
       <div class="subNav inner">
         <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span>접수 및 조회</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span class="pointColor01">접수</span>
       </div>
 
@@ -21,7 +21,7 @@
       <section class="awards subContent inner">
         <div class="contents-container mt-70">
           <div class="box">
-            <h3 class="bgBox-title">작품 접수 (14세 미만)</h3>
+            <h3 class="bgBox-title">작품 접수 (14세 이상)</h3>
             <form class="apply-form" @submit.prevent="submitForm">
               <!-- 참가 부문 -->
               <div class="form-group">
@@ -63,7 +63,7 @@
                   </div>
                   <div class="email-auth">
                     <input type="email" v-model="formData.email" placeholder="이메일 주소" />
-                    <button type="button" class="btn01 white certi" @click="sendCode">인증코드 전송</button>
+                    <button type="button" class="btn01 white certi" @click="sendCode"><span>인증코드 전송</span></button>
                   </div>
                 </div>
                 <div class="form-group">
@@ -83,7 +83,7 @@
               </div>
 
               <!-- 원서 파일 -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <div class="form-label-wrap">
                   <label class="label required">원서 파일</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -91,7 +91,7 @@
                 <button type="button" @click="triggerApplicationFileInput" class="file-button btn01 white">파일 선택</button>
                 <span class="file-name" v-if="applicationFileName">{{ applicationFileName }}<button class="remove-button" @click="removeApplicationFile">×</button></span>
                 <input ref="applicationFileInput" type="file" @change="handleApplicationFileChange" style="display:none" />
-              </div>
+              </div> -->
 
               <!-- 작품 사진 -->
               <div class="form-group align-up">
@@ -99,7 +99,7 @@
                   <label class="label required">작품 사진</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white">파일 선택</button>
+                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white"><span>파일 추가</span></button>
                 <div class="file-wrap">
                   <div v-if="workImagePreview" class="preview-container">
                     <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />

@@ -11,9 +11,9 @@
       <!-- 네비게이션 -->
       <div class="subNav inner">
         <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span>접수 및 조회</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span class="pointColor01">접수</span>
       </div>
 
@@ -104,7 +104,7 @@
                   </div>
                   <div class="email-auth">
                     <input type="email" v-model="formData.email" placeholder="이메일 주소" />
-                    <button type="button" class="btn01 white certi" @click="sendCode">인증코드 전송</button>
+                    <button type="button" class="btn01 white certi" @click="sendCode"><span>인증코드 전송</span></button>
                   </div>
                 </div>
                 <div class="form-group">
@@ -113,7 +113,7 @@
                     <span class="bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   </div>
                   <div class="info-wrap">
-                    <input style="max-width: 700px" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
+                    <input style="max-width: 528px" type="text" v-model="formData.authCode" placeholder="인증 코드 입력" />
                     <div class="caution">
                       <ul>
                         <li>접수 조회 시, 이메일 주소가 필요합니다. 꼭 기억해 주세요.</li>
@@ -124,7 +124,7 @@
               </div>
 
               <!-- 원서 파일 -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <div class="form-label-wrap">
                   <label class="label required">원서 파일</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -132,7 +132,7 @@
                 <button type="button" @click="triggerApplicationFileInput" class="file-button btn01 white">파일 추가</button>
                 <span class="file-name" v-if="applicationFileName">{{ applicationFileName }}<button class="remove-button" @click="removeApplicationFile">×</button></span>
                 <input ref="applicationFileInput" type="file" @change="handleApplicationFileChange" style="display:none" />
-              </div>
+              </div> -->
 
               <!-- 작품 사진 -->
               <div class="form-group align-up">
@@ -140,7 +140,7 @@
                   <label class="label required">작품 사진</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white">파일 추가</button>
+                <button type="button" @click="triggerWorkImageInput" class="file-button btn01 white"><span>파일 추가</span></button>
                 <div class="file-wrap">
                   <div v-if="workImagePreview" class="preview-container">
                     <img :src="workImagePreview" alt="미리보기 이미지" class="preview-image" />
@@ -173,14 +173,14 @@
                   <label class="label required">작품 설명</label>
                   <span class="bold">&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
-                <textarea v-model="formData.workDescription" placeholder="작품에 대한 설명을 입력해주세요."></textarea>
+                <textarea class="textarea" v-model="formData.workDescription" placeholder="작품에 대한 설명을 입력해주세요." style="height: 500px;"></textarea>
               </div>
             </form>
           </div>
         </div>      
         <div class="box two">
           <div class="bold">[필수] 보호자 동의</div>
-          <div class="confirm">본인은 공모전에 지원하는 ○○○(참가자)의 법적 보호자로서, 공모전 참여 및 개인정보 수집·이용에 동의합니다.</div>
+          <div class="confirm">본인은 공모전에 지원하는 <span class="bold">{{ formData.name }}</span>의 법적 보호자로서, 공모전 참여 및 개인정보 수집·이용에 동의합니다.</div>
           <div class="dot">
             <ul>
               <li>수집 항목: 참가자 및 보호자의 성명, 연락처, 관계 등</li>
@@ -195,45 +195,90 @@
         </div>
         <div class="btn-wrap">
           <BtnBlack
-            :label="'제출'"
             :disabled="!allChecked"
-            @click="handleNext"
-          />
+            @click="submitForm"
+          >
+            <span>다음</span>
+        </BtnBlack>
         </div>
       </section>
 
     </div>
 
-
+    <div class="form-display" style="background-color: aqua; padding: 50px; font-size: 18px;">
+      <p>카테고리: {{ formData.category }}</p>
+      <p>이름: {{ formData.name }}</p>
+      <p>전화번호: {{ formData.phone }}</p>
+      <p>보호자 관계: {{ formData.guardianRelation }}</p>
+      <p>기타 보호자 관계: {{ formData.guardianRelationEtc }}</p>
+      <p>보호자 전화번호: {{ formData.guardianPhone }}</p>
+      <p>보호자 이름: {{ formData.guardianName }}</p>
+      <p>이메일: {{ formData.email }}</p>
+      <p>인증코드: {{ formData.authCode }}</p>
+      <!-- <p>신청서 파일: {{ formData.applicationFile ? formData.applicationFile.name : '없음' }}</p> -->
+      <p>작품 이미지: {{ formData.workImage ? formData.workImage.name : '없음' }}</p>
+      <p>작품 제목: {{ formData.workTitle }}</p>
+      <p>작품 설명: {{ formData.workDescription }}</p>
+    </div>
   </main>
+
+
 </template>
 
 <script setup>
 
-// 원서 파일 상태
-const applicationFileInput = ref(null)
-const applicationFileName = ref('')
+import Swal from 'sweetalert2'
+import { useRuntimeConfig, useCookie, useRouter } from '#imports'
+
+const router = useRouter()
+
+const emailAuthSent = ref(false)
+
+// 이메일 인증 코드 전송
+const sendCode = () => {
+  if (!formData.value.email) {
+    return Swal.fire('이메일을 입력해주세요.', '', 'warning')
+  }
+
+  if (!emailAuthSent.value) {
+    // 첫 인증코드 발송
+    emailAuthSent.value = true
+    Swal.fire('인증 코드가 전송되었습니다.', '이메일을 확인해주세요.', 'success')
+  } else {
+    // 인증코드 입력 후 확인 버튼 누름
+    if (formData.value.authCode === '123456') { // 예시
+      emailVerified.value = true
+      Swal.fire('이메일 인증이 완료되었습니다.', '', 'success')
+    } else {
+      Swal.fire('인증 코드가 일치하지 않습니다.', '', 'error')
+    }
+  }
+}
+
+// // 원서 파일 상태
+// const applicationFileInput = ref(null)
+// const applicationFileName = ref('')
 
 // 작품 사진 상태
 const workImageInput = ref(null)
 const workImageFileName = ref('')
 const workImagePreview = ref('')
 
-// 버튼 클릭 트리거 함수 구분
-function triggerApplicationFileInput() {
-  applicationFileInput.value.click()
-}
+// // 버튼 클릭 트리거 함수 구분
+// function triggerApplicationFileInput() {
+//   applicationFileInput.value.click()
+// }
 
 function triggerWorkImageInput() {
   workImageInput.value.click()
 }
 
 
-function removeApplicationFile() {
-  applicationFileName.value = ''
-  formData.value.applicationFile = null
-  applicationFileInput.value.value = null // input 초기화
-}
+// function removeApplicationFile() {
+//   applicationFileName.value = ''
+//   formData.value.applicationFile = null
+//   applicationFileInput.value.value = null // input 초기화
+// }
 
 function removeWorkImage() {
   workImageFileName.value = ''
@@ -242,14 +287,14 @@ function removeWorkImage() {
   workImageInput.value.value = null // input 초기화
 }
 
-// api 전송 초기화
-function handleApplicationFileChange(event) {
-  const file = event.target.files[0]
-  if (file) {
-    applicationFileName.value = file.name
-    formData.value.applicationFile = file
-  }
-}
+// // api 전송 초기화
+// function handleApplicationFileChange(event) {
+//   const file = event.target.files[0]
+//   if (file) {
+//     applicationFileName.value = file.name
+//     formData.value.applicationFile = file
+//   }
+// }
 
 // api 전송 초기화
 function handleWorkImageChange(event) {
@@ -272,10 +317,11 @@ const formData = ref({
   guardianName: '',
   email: '',
   authCode: '',
-  applicationFile: null,
+  // applicationFile: null,
   workImage: null,
   workTitle: '',
-  workDescription: ''
+  workDescription: '',
+  agree: false,
 })
 
 // const handleFileChange = (event, key) => {
@@ -285,25 +331,120 @@ const formData = ref({
 //   }
 // }
 
-// 이메일 인증 코드 전송
-const sendCode = () => {
-  // TODO: 이메일 인증 코드 API 호출
-  console.log('인증코드 전송:', formData.value.email)
-}
+
 
 // 제출 처리
-const submitForm = () => {
-  // 예시: FormData 사용
-  const payload = new FormData()
-  for (const key in formData.value) {
-    payload.append(key, formData.value[key])
+const emailVerified = ref(false) // 이메일 인증 여부
+const allChecked = computed(() => {
+  const d = formData.value
+  return (
+    d.category &&
+    d.name &&
+    (!d.phone || /^\d{10,11}$/.test(d.phone)) &&
+    d.guardianRelation &&
+    d.guardianName &&
+    d.email &&
+    emailVerified.value &&
+    d.workImage &&
+    d.workTitle &&
+    d.workDescription &&
+    d.agree
+  )
+})
+
+async function submitForm() {
+  const d = formData.value
+
+  if (!d.category) {
+    return Swal.fire('참가 부문을 선택해주세요.', '', 'warning')
   }
 
-  // TODO: API 호출만 하면 됨
-  console.log('제출 준비 완료:', formData.value)
+  if (!d.name) {
+    return Swal.fire('참가자 성명을 입력해주세요.', '', 'warning')
+  }
 
-  // 예: axios.post('/api/submit', payload)
+  if (d.phone && !/^\d{10,11}$/.test(d.phone)) {
+    return Swal.fire('본인 연락처는 숫자만 10~11자리로 입력해주세요.', '', 'warning')
+  }
+
+  if (!d.guardianRelation) {
+    return Swal.fire('보호자 관계를 선택해주세요.', '', 'warning')
+  }
+
+  if (!d.guardianName) {
+    return Swal.fire('보호자 성함을 입력해주세요.', '', 'warning')
+  }
+
+  if (!d.email) {
+    return Swal.fire('이메일을 입력해주세요.', '', 'warning')
+  }
+
+  if (!emailVerified.value) {
+    return Swal.fire('이메일 인증을 완료해주세요.', '', 'warning')
+  }
+
+  if (!d.workImage) {
+    return Swal.fire('작품 사진을 첨부해주세요.', '', 'warning')
+  }
+
+  if (!d.workTitle) {
+    return Swal.fire('작품명을 입력해주세요.', '', 'warning')
+  }
+
+  if (!d.workDescription) {
+    return Swal.fire('작품 설명을 입력해주세요.', '', 'warning')
+  }
+
+  if (!d.agree) {
+    return Swal.fire('보호자 동의를 체크해주세요.', '', 'warning')
+  }
+
+  // 모든 유효성 통과 → API 전송
+  try {
+    const config = useRuntimeConfig()
+    const token = useCookie('auth_token').value
+
+    const payload = new FormData()
+    for (const key in d) {
+      payload.append(key, d[key])
+    }
+
+    const { data, error } = await useFetch('/api/register', {
+      baseURL: config.public.backendUrl,
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: payload,
+    })
+
+    if (error.value) {
+      return Swal.fire('접수 중 오류가 발생했습니다.', '잠시 후 다시 시도해주세요.', 'error')
+    }
+
+    // 접수 완료 안내창
+    const result = await Swal.fire({
+      title: '접수가 완료되었습니다.',
+      html: `
+        접수번호는 <strong>25Aa001</strong>입니다.<br><br>
+        추후 결과 발표 시,<br>
+        해당 접수번호로 확인이 가능합니다.
+      `,
+      icon: 'success',
+      confirmButtonText: '접수 확인하기',
+      confirmButtonColor: '#000',
+    })
+
+    if (result.isConfirmed) {
+      router.push('/apply/check')
+    }
+  } catch (e) {
+    console.error(e)
+    Swal.fire('알 수 없는 오류가 발생했습니다.', '', 'error')
+  }
 }
+
+
 
 </script>
 
@@ -452,6 +593,7 @@ const submitForm = () => {
   font-size: 18px;
   white-space: nowrap;
   font-weight: 400;
+  font-size: 16px;
 }
 /* .file-button:hover {
   background-color: #901737;
@@ -514,6 +656,7 @@ const submitForm = () => {
   /* border: 1px solid #D9D9D9; */
   padding: 10px 30px;
   font-weight: 400;
+  z-index: 10px;
 }
 /* .tip {
   font-size: 16px;
@@ -572,6 +715,7 @@ const submitForm = () => {
   padding-bottom: 50px;
   position: sticky;
   bottom: 0 !important;
+  z-index: 100px;
 }
 
 
@@ -589,10 +733,11 @@ const submitForm = () => {
   padding-bottom: 1.5px;
   padding-right: 0.5px;
 }
-textarea {
-  height: 300px;      
+.form-group .textarea {
+  height: 500px !important;
   overflow-y: auto;   
-  resize: none;        
+  resize: none; 
+  box-sizing: content-box;        
 }
 /* .dot ul {
   padding-left: 20px;  
@@ -681,6 +826,7 @@ textarea {
   }
   .certi {
     padding: 12px 15px;
+    font-size: 16px;
   }
   .file-wrap {
     flex-direction: column;
@@ -689,7 +835,7 @@ textarea {
   }
   .form-group input{
     width: 100%;
-    max-width: none;
+    max-width: none !important;
   }
   .email-auth {
     width: 100%;

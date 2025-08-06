@@ -5,7 +5,7 @@
       <!-- 로고 -->
       <div class="logo">
         <nuxt-link to="/">
-          <img class="logo-img" src="../assets/img/common/logo.png" alt="로고" />
+          <img class="logo-img" src="/images/common/logo.png" alt="로고" />
         </nuxt-link>
       </div>
       <div class="right pc_display">
@@ -245,10 +245,30 @@ const onScroll = () => {
   }
 }
 
+// 페이지 이동 후 메뉴 닫기
+const handleRouteChange = () => {
+  isSubmenuVisible.value = false
+  selectedMenuKey.value = null
+  offcanvasOpenActive.value = false
+  activeGnbMenuIndex.value = null
+  document.body.style.overflow = ''
+  document.documentElement.style.overflow = ''
 
+  // 헤더 배경 복구
+  if (headerRef.value) {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop
+    const isSubPage = document.querySelector('.sub-page') !== null
+    if (scrollTop > 0 || isSubPage) {
+      headerRef.value.style.backgroundColor = '#fff'
+    } else {
+      headerRef.value.style.backgroundColor = 'transparent'
+    }
+  }
+}
 
 onMounted(() => {
   window.addEventListener('scroll', onScroll)
+  router.afterEach(handleRouteChange)
 })
 
 onBeforeUnmount(() => {

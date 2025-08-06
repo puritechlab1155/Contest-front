@@ -4,7 +4,7 @@
       <div class="group-a">
         <span class="label">주최 및 주관</span>
         <span class="divider">|</span> <span class="mob-br"></span>
-        <img src="../assets/img/common/footer-logo.png" alt="로고" class="logo" />
+        <img src="/images/common/footer-logo.png" alt="로고" class="logo" />
         <span class="text">뉴스피릿 미술 공모전 운영위원회</span>
       </div>
       <div class="group-b">

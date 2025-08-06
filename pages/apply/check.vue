@@ -11,9 +11,9 @@
       <!-- 네비게이션 -->
       <div class="subNav inner">
         <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span>접수 및 조회</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span class="pointColor01">접수</span>
       </div>
 

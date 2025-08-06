@@ -11,9 +11,9 @@
       <!-- 네비게이션 -->
       <div class="subNav inner">
         <span>홈</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span>접수 및 조회</span>
-        <img src="../../assets/img/common/navarrow.svg" alt="화살표">
+        <img src="/images/common/navarrow.svg" alt="화살표">
         <span class="pointColor01">접수</span>
       </div>
 
@@ -48,12 +48,12 @@
                 </svg>
               </div> -->
               <div class="left">
-                <div class="option-inner">
+                <div class="option-inner" @click="goToUnderInfo">
                   만 14세 미만 <br> 참가자
                 </div>
               </div>
               <div class="right">
-                <div class="option-inner">
+                <div class="option-inner" @click="goToUpInfo">
                 만 14세 이상 <br> 참가자
                 </div>
               </div>
@@ -83,8 +83,8 @@
 //   </svg>`
 // }
 
-import UnderAgeIcon from '../../assets/img/apply/ageDown.png'
-import OverAgeIcon from '../../assets/img/apply/ageUp.png'
+import UnderAgeIcon from '/images/apply/ageDown.png'
+import OverAgeIcon from '/images/apply/ageUp.png'
 
 const router = useRouter()
 const selected = ref(null)
@@ -106,12 +106,13 @@ const selectOption = (value) => {
   selected.value = value
 }
 
-const handleNext = () => {
-  if (selected.value === 'under') {
-    router.push('/apply/underInfo')
-  } else if (selected.value === 'over') {
-    router.push('/apply/upInfo')
-  }
+
+const goToUnderInfo = () => {
+  router.push('/apply/formUnder') // underInfo.vue로 이동
+}
+
+const goToUpInfo = () => {
+  router.push('/apply/formUp') // upInfo.vue로 이동
 }
 
 </script>
@@ -131,10 +132,11 @@ const handleNext = () => {
   width: 100%;
 }
 .contents-container {
-  width: calc(100% + 40px);
+  /* width: calc(100% + 40px); */
   /* padding-left: 20px; */
-  padding-right: 20px;
+  /* padding-right: 20px; */
 }
+
 .left {
   display: flex;
   align-items: right;
@@ -142,11 +144,10 @@ const handleNext = () => {
   flex: 1;
   height: 300px;
   width: 100%;
-  background-image: url(../../assets/img/apply/left-bg.png);
+  background-image: url(/images/apply/left-bg.png);
   background-position: bottom center; 
   background-repeat: no-repeat;
   background-size: 100% auto;
-
   /* background-size: calc(100% + 40px) auto;  */
 }
 .right {
@@ -155,30 +156,32 @@ const handleNext = () => {
   justify-content: center;
   flex: 1;
   height: 300px;
-  background-image: url(../../assets/img/apply/right-bg.png);
+  width: 100%;
+  background-image: url(/images/apply/right-bg.png);
   background-position: bottom center; 
   background-repeat: no-repeat;
   background-size: 100% auto;
   /* background-size: calc(100% + 40px) auto; */
 }
 .option-inner {
-  max-width: 1248px;
   font-size: 70px;
   font-weight: 600;
   background-color: aquamarine;
+  min-width: 624px;
+  max-width: 624px;
 }
 .left .option-inner {
-  background-image: url(../../assets/img/apply/ageDown.png);
-  background-position: bottom center; 
+  background-image: url(/images/apply/ageDown.png);
+  background-position: right bottom; 
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: 50% auto;
   margin-left: auto;
 }
 .right .option-inner {
-  background-image: url(../../assets/img/apply/ageUp.png);
-  background-position: bottom center; 
+  background-image: url(/images/apply/ageUp.png);
+  background-position: right bottom; 
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: 70% auto;
   margin-right: auto;
 }
 
@@ -234,9 +237,32 @@ const handleNext = () => {
   padding: 5px;
 } */
 
+@media (max-width: 1248px) {
+  .option-inner {
+    min-width: 0;
+  }
+}
 @media (max-width: 768px) {
   .age-options {
     flex-direction: column;
+  }
+  .option-inner {
+    font-size: 30px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0 50px;
+  }
+  .left .option-inner {
+    background-size: 50% auto;
+    margin-left: auto;
+    height: 350px;
+    
+  }
+  .right .option-inner {
+    background-size: 50% auto;
+    margin-right: auto;
+    height: 350px;
   }
 }
 

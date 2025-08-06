@@ -108,7 +108,7 @@
               :disabled="!allChecked"
               @click="handleNext"
             >
-            <span>다음</span>
+              <span>다음</span>
             </BtnBlack>
           </div>
         </div>
