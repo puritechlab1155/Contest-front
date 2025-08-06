@@ -422,7 +422,7 @@ onBeforeUnmount(() => {
   width: 100%;
   overflow: hidden;
   position: absolute;
-  top: 20px;
+  top: 12px;
   right: 0;
   z-index: 150;
   text-align: right;
@@ -478,7 +478,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 80px;
+  top: 60px;
   right: 0;
   transform: translateX(100%);
   /* transform: translateX(0%); */
@@ -597,40 +597,36 @@ onBeforeUnmount(() => {
 
 
 @media (max-width: 1080px) {
+  .header {
+    height: 60px;
+  }
   .header .header-inner{
     padding: 10px !important;
   }
 
   .header .logo-img {
-      height: 40px !important;
-      width: 150px !important;
+    height: 40px !important;
+    width: 150px !important;
   }
   .header .mobile_display {
-      display: block;
+    display: block;
   }
   .header .pc_display {
-      display: none !important;
+    display: none !important;
   }
 }
 @media (max-width: 768px) {
-  .header {
-      height: 60px;
-    }
-    .header .offcanvas-open {
-      width: 25px;
-      height: 25px;
-      margin-top: -35px;
-    }
-    .header .offcanvas-open .ham {
-      width: 25px;
-    }
-    .header .offcanvas {
-      top: 50px;
-    }
-    .header .logo-img {
-      width: 100px;
-      height: 30px;
-    }
+  .header .offcanvas-open {
+    width: 25px;
+    height: 25px;
+  }
+  .header .offcanvas-open .ham {
+    width: 25px;
+  }
+  .header .logo-img {
+    width: 100px;
+    height: 30px;
+  }
 
 }
 </style>

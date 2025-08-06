@@ -238,6 +238,20 @@ transition-delay: 0.05s; /* 배경 확장 약간 늦게 */
   color: #222;
 }
 
+.btn01.red {
+  background-color: #B31C45;
+  border: 1px solid #B31C45;
+}
+.btn01.red span {
+  color: #FEFEFE;
+}
+.btn01.red::before {
+  background: #FEFEFE;
+}
+.btn01.red span:not(:disabled):hover, .btn01.red:not(:disabled):hover {
+  color: #B31C45;
+}
+
 
 .mt-10 {
   margin-top: 10px;
@@ -264,22 +278,7 @@ br.mob, br.smob {
   display: none;
 }
 
-
-.section-title {
-  font-size: 46px;
+/* .bold {
   font-weight: 600;
-  line-height: 120%;
-}
-.pink-title {
-  color: #B31C45;
-  font-size: 30px;
-  line-height: 120%;
-  font-weight: 600;
-}
-
-.bold {
-  font-weight: 600;
-}
-
-
+} */
 

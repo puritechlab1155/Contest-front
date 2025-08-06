@@ -4,30 +4,14 @@
       <div class="wrap01">
         <div class="contest-info">
           <div>
-            <h1 class="main-title" style="white-space: nowrap;">제1회 뉴스피릿 미술 공모전</h1>
-            <div class="title-point" style="font-size: 65px; font-weight: 400; margin-top: 20px; margin-bottom: 10px; line-height: 130%;"> 미래의 스타, <br/>&nbsp;꿈꾸는 지구 </div>
+            <h1 class="main-title">제1회 뉴스피릿 미술 공모전</h1>
+            <div class="title-point">미래의 스타, <br/>꿈꾸는 지구 </div>
             <!-- <p class="date">2025.09.15(월) ~ 10.15(수)</p> -->
           </div>
-          <p class="date" style="font-size: 30px; white-space: nowrap;">2025.09.15<span style="font-size: 20px;" class="date">(월)</span> ~ 10.15<span style="font-size: 20px;" class="date">(수)</span></p>
-          <!-- <div class="info-grid">
-            <div class="info-item">
-              <h2 class="info-title">주제</h2>
-              <p class="info-text">“미래의 스타, 꿈꾸는 지구"</p>
-            </div>
-            <div class="info-item"> 
-              <h2 class="info-title">참가대상</h2>
-              <p class="info-text">초등부 / 중등부 / 고등부 / 대학부(대학원생 포함)</p>
-            </div>
-            <div class="info-item large">
-              <h2 class="info-title">참가 부문</h2>
-              <p class="info-text">자유 창작 부문(주제 해석 및 표현 형식 자유)</p>
-              <p class="sub">→ 주제를 창의적으로 해석하여, 자신만의 세계를 표현</p>
-            </div>
-          </div> -->
-          <button class="btn01 white" @click="goToGuide">
+          <p class="date">2025.09.15 ~ 10.15</p>
+          <button class="btn01 recruit" @click="goToGuide">
             <span>모집요강 더보기</span>
           </button>
-
         </div>
         <div class="image-wrapper">
           <div class="left-wrap">
@@ -39,47 +23,115 @@
         </div>
       </div>
       <div class="wrap02">
-        <div class="info-wrapper">
-
+        <div class="info-wrapper inner" >
           <div class="info-item">
             <div class="info-text">
               <p class="info-title">접수 기간</p>
-              <p class="info-date">2025. 09. 15(월)<br/>~ 10. 15(수)</p>
+              <p class="info-date">09월 15일 ~ 10월 15일</p>
+              <button class="btn01 red mobile" @click="goToGuide">
+                <span>바로가기</span>
+              </button>
             </div>
             <svg class="arrow-icon" width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="#B31C45"/>
+              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="#9B9B9B"/>
             </svg>
           </div>
-  
           <div class="info-item">
             <div class="info-text">
               <p class="info-title">심사 기간</p>
-              <p class="info-date">2025. 10. 16(목)<br/>~ 10. 31(금)</p>
+              <p class="info-date">10월 16일 ~ 10월 31일</p>
             </div>
             <svg class="arrow-icon" width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="#B31C45"/>
+              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="#9B9B9B"/>
             </svg>
           </div>
-  
+          <div class="info-item tablet">
+            <div class="tablet-btn">
+              <button class="btn01 red tablet" @click="goToGuide">
+                  <span>바로가기</span>
+              </button>
+            </div>
+          </div>
           <div class="info-item">
             <div class="info-text">
               <p class="info-title">결과 발표</p>
-              <p class="info-date">2025. 11. 03(월)</p>
+              <p class="info-date">11월 03일</p>
             </div>
             <svg class="arrow-icon" width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="#B31C45"/>
+              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="#9B9B9B"/>
             </svg>
           </div>
   
           <div class="info-item">
             <div class="info-text">
               <p class="info-title">전시 일정</p>
-              <p class="info-date">2025. 11. 26(수)<br/>~ 12. 04(목)</p>
+              <p class="info-date">11월 26일 ~ 12월 04일</p>
             </div>
+            <svg class="arrow-icon mobile" width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="none"/>
+            </svg>
           </div>
 
         </div>
-        <p class="info-pink">❖ 대상 수상자 기사화 및 언론 브랜딩 지원</p>
+        <div class="grid-wrapper inner">
+          <div class="grid01" >
+            <button class="btn01 red pc" @click="goToGuide">
+              <span>바로가기</span>
+            </button>
+          </div>
+          <div class="caution">
+              <ul>
+                <li>
+                  대상 수상자 기사화 및 언론 브랜딩 지원
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="sec03 inner mt-20">
+      <iframe class="iframe"
+          style="width: 100%; height: 670px"
+          src="https://www.youtube.com/embed/loIBLzAX-pU"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+      ></iframe>
+    </section>
+    <section class="sec04 inner mt-20">
+      <div class="section-title" style="font-weight: 400;">
+        수상자 혜택
+      </div>
+      <div class="wrap01">
+        <div class="left">
+          <div class="text one">기사화 노출</div>
+          <div class="text two">언론 브랜딩</div>
+        </div>
+        <div class="right">
+          <div class="section-sub-title">
+            부문별 대상자 상금
+          </div>
+          <div class="prize-wrap">
+            <div class="prize-box">
+              <div class="prize-age">대학부 (1명)</div>
+              <div class="prize-money">₩1,000,000</div>
+            </div>
+            <div class="prize-box">
+              <div class="prize-age">고등부 (1명)</div>
+              <div class="prize-money">₩500,000</div>
+            </div>
+            <div class="prize-box">
+              <div class="prize-age">중등부 (1명)</div>
+              <div class="prize-money">₩500,000</div>
+            </div>
+            <div class="prize-box">
+              <div class="prize-age">초등부 (1명)</div>
+              <div class="prize-money">문화상품권</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -99,78 +151,79 @@ const goToGuide = () => {
 </script>
 
 <style scoped>
-.title-point{
-  font-family: 'NotoSerifKR';
-}
 
-.index .sec01 {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding-left: 20px;
-}
-.index .sec01 .wrap01 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1248px; /* wrap01의 너비는 1248px로 유지 */
-  margin-left: auto; /* 왼쪽 여백을 자동으로 채워 오른쪽으로 정렬 */
-}
-/* .index .sec01 .contest-info {
-  max-width: 430px;
-} */
-
-
-.index .sec01 .main-title {
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.index .sec01 .date {
-  font-size: 24px;
+.section-title {
+  font-size: 46px;
   font-weight: 600;
-  color: #B31C45;
-  margin-top: 8px;
+  line-height: 120%;
+}
+.section-sub-title {
+  font-size: 30px;
+  line-height: 120%;
+  font-weight: 600;
 }
 
-.index .sec01 .info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 24px;
-  margin-top: 40px;
+
+.title-point {
+  text-align: center;
+  font-family: 'NotoSerifKR';
+  font-size: 65px; 
+  font-weight: 400; 
+  margin-top: 30px; 
+  margin-bottom: 10px; 
+  line-height: 130%;
+  white-space: nowrap;
+  padding: 0 40px;
+  background-image: url(/images/main/quotes.png);
+  background-position: top center; 
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 }
 
-.index .sec01 .info-item {
-  line-height: 150%;
-}
-.index .sec01 .info-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
-.index .sec01 .info-text {
-  font-size: 18px;
-  font-weight: 400;
-  margin: 0;
-}
-
-.index .sec01 .info-item.large {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3; 
-}
-
-.index .sec01 .info-item.large .sub {
-  font-size: 16px;
-  color: #5D5D5D;
-  margin-top: 15px;
-}
-
-.index .sec01 .btn01.white {
+.recruit {
   margin-top: 60px;
 }
+.btn01.red {
+  margin-top: 20px;
+}
+.btn01.mobile {
+  display: none;
+}
+.sec01 {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.sec01 .wrap01 {
+  display: flex;
+  /* align-items: center; */
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: 1300px; /* wrap01의 너비는 1248px로 유지 */
+  margin-left: auto; /* 왼쪽 여백을 자동으로 채워 오른쪽으로 정렬 */
+  /* background-color: #b3b01c; */
+  padding-left: 20px;
+}
+.sec01 .contest-info {
+  text-align: center;
+  /* background-color: #FF5972; */
+  margin-bottom: 20px;
+}
 
-.index .sec01 .image-wrapper {
+.sec01 .main-title {
+  font-size: 35px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.sec01 .date {
+  font-size: 35px;
+  color: #B31C45;
+  margin-top: 20px;
+  text-align: center;
+}
+
+
+.sec01 .image-wrapper {
   position: relative;
   width: 100%;
   height: 500px;
@@ -182,29 +235,30 @@ const goToGuide = () => {
   overflow: hidden;
 }
 
-.index .sec01 .masked-image {
+.sec01 .masked-image {
   background-size: cover;
   background-position: center;
   transition: clip-path 1s ease-in-out;
 }
 
 
-.index .sec01 .masked-image.left {
+.sec01 .masked-image.left {
   width: 450px;
   height: 480px;
-  background-image: url('../assets/img/main-top01.png');
-  clip-path: inset(0 0 0 0);
+  background-image: url('/images/main/top01.png');
+  background-position: top center; 
 
+  clip-path: inset(0 0 0 0);
   opacity: 0;
   transform: scale(1.1); /* 살짝 크게 시작 */
   animation: fadeInZoom 2s ease-out forwards;
 }
 
 /* 오른쪽 이미지 */
-.index .sec01 .masked-image.right {
+.sec01 .masked-image.right {
   width: 210px;
   height: 300px;
-  background-image: url('../assets/img/main-top02.png');
+  background-image: url('/images/main/top02.png');
   clip-path: inset(0 0 0 0);
 
   opacity: 0;
@@ -212,7 +266,7 @@ const goToGuide = () => {
   animation: fadeInZoom 2s ease-out forwards;
 }
 
-.index .sec01 .image-wrapper .left-wrap {
+.sec01 .image-wrapper .left-wrap {
   position: relative;
   width: 450px;
   height: 480px;
@@ -220,7 +274,7 @@ const goToGuide = () => {
   animation: leftRoundIn 5s ease-in-out forwards;
 }
 
-.index .sec01 .image-wrapper .right-wrap {
+.sec01 .image-wrapper .right-wrap {
   position: relative;
   width: 210px;
   height: 300px;
@@ -264,95 +318,363 @@ const goToGuide = () => {
   }
 }
 
-.index .sec01 {
-  /* background-color: yellow; */
-}
-
-.index .sec01 .wrap02 {
+.sec01 .wrap02 {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  padding: 0px 20px 40px;
-  background-image: url('../assets/img/main-sec01-bg.png');
+  padding: 40px 20px 20px;
+  background-image: url('/images/main/sec01-bg.png');
   background-repeat: no-repeat;   
   background-size: cover;           
   background-position: center center; 
-  margin-top: 80px;
+  margin-top: 60px;
   text-align: center;
 }
 
-.index .sec01 .wrap02 .info-wrapper {
+.sec01 .wrap02 .info-wrapper {
   display: flex;
-  flex-wrap: wrap;
-  gap: 75px;
-  justify-content: center;
+  align-items: flex-start;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
-.index .sec01 .wrap02 .info-item {
+.sec01 .wrap02 .info-item {
   display: flex;
   align-items: center;
-  width: fit-content;
+  justify-content: center;
+  gap: 25px;
+  /* width: fit-content; */
 }
 
-.index .sec01 .wrap02 .info-text {
-  width: 180px;
+.sec01 .wrap02 .info-item.tablet {
+  display: none;
+}
+.btn01.tablet {
+  display: none;
+}
+
+.sec01 .wrap02 .info-text {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  height: 100px;
+  align-items: center;
+  justify-content: center;
+  min-width: 225px;
+  /* background-color: aqua; */
 }
 
-.index .sec01 .wrap02 .info-title {
-  font-weight: bold;
+.sec01 .wrap02 .info-title {
+  /* font-weight: bold; */
+  font-size: 24px;
+  color: #5D5D5D;
+}
+
+.sec01 .wrap02 .info-date {
   font-size: 24px;
   color: #B31C45;
-}
-
-.index .sec01 .wrap02 .info-date {
-  font-size: 18px;
-  color: #5D5D5D;
   font-weight: 400;
   line-height: 150%;
   margin-top: 10px;
 }
 
-.index .sec01 .wrap02 .info-pink {
-  color: #FF5972;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 150%;
-  margin-top: 10px;
-}
 
-.index .sec01 .wrap02 .arrow-icon {
-  margin-left: 10px;
+.sec01 .wrap02 .arrow-icon {
+  /* margin-left: 10px; */
   transition: transform 0.3s ease;
 }
+.sec01 .wrap02 .arrow-icon.mobile {
+  display: none;
+}
+
+.sec01 .wrap02 .grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4등분 */
+  gap: 16px; /* 요소 사이 간격 */
+  align-items: center;
+  /* align-items: flex-end; */
+}
+
+.sec01 .wrap02 .grid01 {
+  grid-column: 1 / 2; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: bisque; */
+  margin-right: 30px;
+}
+
+.sec01 .wrap02 .caution {
+  grid-column: 2 / 4; /* 두 번째 + 세 번째 칸 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 
+.sec03 {
+  padding: 50px 20px;
+}
+
+.sec03 .iframe {
+  margin-top: 50px;
+}
+
+.sec04 {
+  padding: 50px 20px 0;
+  height: 625px;
+}
+.sec04 .wrap01 {
+  display: flex;
+  gap: 20px;
+  margin-top: 80px;
+}
+.sec04 .left {
+  flex: 5;
+  background-image: url('../img/main-sec04-mic.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 400px auto;
+  position: relative;
+}
+.sec04 .left .text.one{
+  background-image: url('../img/main-sec04-paint01.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding: 40px;
+  width: 250px;
+  text-align: center;
+  margin: 0 auto;
+}
+.sec04 .left .text.two{
+  background-image: url('../img/main-sec04-paint02.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding: 50px;
+  width: 250px;
+  text-align: center;
+}
+.sec04 .left .text{
+  font-size: 30px;
+  font-weight: 600;
+}
+.sec04 .right {
+  flex: 5;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.sec04 .prize-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin: 30px 0;
+}
+.sec04 .prize-box {
+  padding: 10px 20px;
+  background-color: #FFF5F5;
+}
+.sec04 .prize-age {
+  font-size: 18px;
+}
+.sec04 .prize-money {
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+
+
+
+@media (max-width: 1240px) {
+  /* .sec01 .wrap02 .info-text {
+    min-width: 0;
+  }
+  .sec01 .wrap02 .grid01 {
+    margin-right: 0px;
+} */
+  /* .sec01 .wrap01 .contest-info {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .title-point {  
+    width: 60%;
+    margin: 20px auto 0;
+  } */
+
+  .sec01 .wrap01 {
+    flex-direction: column-reverse;
+    padding-left: 0;
+    gap: 40px;
+    align-items: center;
+  }
+  .sec01 .image-wrapper {
+    justify-content: center;
+  }
+  .sec01 .contest-info {
+    margin-bottom: 0;
+  }
+  .sec01 .wrap02 {
+    padding: 20px;
+  }
+  .btn01.pc {
+    display: none;
+  }
+  .btn01.tablet {
+    display: block;
+    margin-top: 0;
+  }
+  .btn01.recruit {
+    margin-top: 40px;
+  }
+  .sec01 .wrap02 .tablet-btn {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 100px;
+    margin-top: -20px;
+  }
+  .sec01 .wrap02 .info-item.tablet {
+    display: block;
+    /* background-color: aquamarine; */
+    width: 100%;
+    grid-column: span 2;
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    height: 10px;
+  }
+  .sec01 .wrap02 .arrow-icon.mobile {
+    display: block;
+  }
+  .sec01 .wrap02 .info-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2개씩 */
+    gap: 20px;
+    padding: 0 20px;
+    justify-items: center;
+    align-items: flex-start;
+    /* background-color: aqua; */
+  }
+  .sec01 .wrap02 .info-item {
+    height: 150px;
+    gap: 50px;
+  }
+  
+}
 
 @media (max-width: 768px) {
-  .index .sec01 .wrap02 .info-wrapper {
-    flex-direction: column;
+  .sec01 .wrap01 {
+    gap: 20px;
+  }
+  .sec01 .wrap01 .contest-info {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .sec01 .main-title {
+    font-size: 25px;
+  }
+  .title-point {  
+    width: 80%;
+    margin: 20px auto 0;
+  }
+  .sec01 .date {
+    font-size: 25px;
+    margin-top: 10px;
+  }
+  .btn01.recruit {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .sec01 .title-point {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+  .sec01 .wrap02 .info-item.tablet {
+    display: none;
+  }
+  .sec01 .wrap02 .arrow-icon.mobile {
+    display: none;
+  }
+  .btn01.mobile {
+    display: block;
+  }
+  .sec01 .wrap02 {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 40px 20px 20px;
+    background-image: url('/images/main/sec01-wrap02-mobileBg.png');
+    background-repeat: no-repeat;   
+    background-size: cover;           
+    background-position: center center; 
+    margin-top: 80px;
+    text-align: center;
+  }
+  .sec01 .wrap02 .info-wrapper {
+    grid-template-columns: 1fr;
+    /* flex-direction: column; */
     gap: 30px;
     align-items: flex-start;
   }
 
-  .index .sec01 .wrap02 .info-item {
+  .sec01 .wrap02 .info-item {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 10px;
   }
 
-  .index .sec01 .wrap02 .arrow-icon {
+  .sec01 .wrap02 .arrow-icon {
     transform: rotate(90deg);
     margin: 10px 0 0 0;
   }
 
-  .index .sec01 .wrap02 .info-text {
+  .sec01 .wrap02 .info-text {
     width: 100%;
     text-align: center;
   }
+  .sec01 .wrap02 .grid-wrapper {
+    display: block;
+  }
 
+  .sec01 .wrap02 .grid01,
+  .sec01 .wrap02 .caution {
+    grid-column: auto;
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .sec01 .image-wrapper .left-wrap {
+    width: 100% !important;
+    /* margin-left: auto; */
+  }
+  .sec01 .image-wrapper .masked-image.left {
+    width: 100% !important;
+    /* margin-left: auto; */
+  }
+  .sec01 .right-wrap {
+    display: none;
+    /* height: 360px; */
+  }
+}
+@media (max-width: 480px) {
+  .title-point {  
+    width: 100%;
+  }
+  .sec01 .image-wrapper {
+    height: 360px;
+  }
+  .sec01 .image-wrapper .left-wrap {
+    height: 360px;
+  }
+  .sec01 .image-wrapper .masked-image.left {
+    height: 360px;
+  }
 }
 
+@media (max-width: 400px) {
 
+}
 </style> 
