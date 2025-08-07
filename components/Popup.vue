@@ -3,44 +3,28 @@
     <div class="popup-content">
       <img :src="data.url" alt="팝업 이미지" class="popup-image" />
       <div class="popup-buttons">
-        <button class="black" @click="close">닫기</button>
-        <button @click="closeForToday">하루 동안 보지 않기</button>
+        <button class="black" >닫기</button>
+        <button >하루 동안 보지 않기</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+const show = ref(true) // 팝업 표시 여부
 // 더미 데이터 
 const data = reactive({
   url: '/images/mockup/postpop.jpg', 
 })
 
-// 쿠키 기반으로 팝업 표시 여부 제어
-const show = ref(false)
 
-onMounted(() => {
-  const hideUntil = useCookie('hidePopupUntil')
-  const now = new Date()
-
-  if (!hideUntil.value || new Date(hideUntil.value) < now) {
-    show.value = true
-  }
-})
-
-function close() {
-  show.value = false
-}
-
-function closeForToday() {
-  const tomorrow = new Date()
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  useCookie('hidePopupUntil').value = tomorrow.toISOString()
-  show.value = false
-}
 </script>
 
 <style scoped>
+button {
+  /* opacity: 0.5; */
+  cursor: not-allowed !important;
+}
 .popup-overlay {
   position: fixed;
   top: 20px;
