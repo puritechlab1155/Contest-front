@@ -41,10 +41,10 @@
         <span class="text-a">전화문의 &nbsp;:&nbsp; (주)뉴스피릿 미술 공모전 사무국</span>
         <span class="text-a bold">02-3775-3336 / 010-8924-0942</span>
       </div>
-      <div class="group-b">
+      <!-- <div class="group-b">
         <span class="text-a">이메일 문의 &nbsp;:&nbsp; 공모전 사무국 e-mail</span> 
         <span class="text-a bold">abcd1234@naver.com</span>
-      </div>
+      </div> -->
     </div>
     <div class="wrap03">
       <nuxt-link to="/terms" class="text-link">이용약관</nuxt-link> 
