@@ -2,28 +2,30 @@
   <main class="index">
     <section class="sec01">
       <div class="wrap01">
-        <div class="contest-info">
-          <div>
-            <h1 class="main-title">제1회 뉴스피릿 미술 공모전</h1>
-            <div class="title-point">미래의 스타, <br/>꿈꾸는 지구 </div>
-            <!-- <p class="date">2025.09.15(월) ~ 10.15(수)</p> -->
+        <div class="container">
+          <div class="contest-info">
+            <div>
+              <h1 class="main-title">제1회 뉴스피릿 미술 공모전</h1>
+              <div class="title-point">미래의 스타, <br/>꿈꾸는 지구 </div>
+              <p class="date">2025.09.15 ~ 10.15</p>
+            </div>
+            <button class="btn01 recruit" @click="goToGuide">
+              <span>모집요강 더보기</span>
+            </button>
           </div>
-          <p class="date">2025.09.15 ~ 10.15</p>
-          <button class="btn01 recruit" @click="goToGuide">
-            <span>모집요강 더보기</span>
-          </button>
-        </div>
-        <div class="image-wrapper">
-          <div class="left-wrap">
-            <div class="masked-image left"></div>
-          </div>
-          <div class="right-wrap">
-            <div class="masked-image right"></div>
+          <div class="image-wrapper">
+            <div class="left-wrap">
+              <div class="masked-image left"></div>
+            </div>
+            <div class="right-wrap">
+              <div class="masked-image right"></div>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="wrap02">
-        <div class="info-wrapper inner" >
+        <div class="info-wrapper" >
           <div class="info-item">
             <div class="info-text">
               <p class="info-title">접수 기간</p>
@@ -71,9 +73,8 @@
               <path d="M28.334 17.5L14.1681 3.33337L5.66732 3.33337L16.9973 14.6641L19.8332 17.5L16.9973 20.336L5.66732 31.6667L14.1681 31.6667L28.334 17.5Z" fill="none"/>
             </svg>
           </div>
-
         </div>
-        <div class="grid-wrapper inner">
+        <div class="grid-wrapper">
           <div class="grid01" >
             <button class="btn01 red pc" @click="goToGuide">
               <span>바로가기</span>
@@ -90,6 +91,34 @@
       </div>
     </section>
     
+    <section class="sec02 inner mt-20">
+      <h3 class="section-title">갤러리</h3>
+      <div class="gall_box_area">
+          <div class="left_box">
+              <div class="tit_box">
+                </div>
+                <div class="img_box">
+                  <p class="txt mobile">공모전을 통해 엄정한 심사를 거쳐 선정된 출품작들이 본 온라인 갤러리를 통해 전시될 예정입니다. 
+                  </p>
+                  <p class="txt mobile">NewSprit은 앞으로도 재능있는 미래의 예술가들이 자신만의 예술세계를 표현하고 공유할 수 있는 장을 지속적으로 마련해 나갈 것입니다.</p>
+                  <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="2000"><a href="#"><img src="/images/main/sec02-work01.png" alt="gall01" /></a></div>
+                  <div data-aos="fade-up" data-aos-duration="2000"><a href="#"><img src="/images/main/sec02-work03.png" alt="gall03" /></a></div>
+                </div>
+            </div>
+            <div class="right_box">
+              <div class="txt_box">
+                  <p class="txt pc">공모전을 통해 엄정한 심사를 거쳐 선정된 출품작들이 <br/>
+                    본 온라인 갤러리를 통해 전시될 예정입니다. 
+                  </p>
+                  <p class="txt pc">NewSprit은 앞으로도 재능있는 미래의 예술가들이 자신만의 예술세계를 표현하고 공유할 수 있는 장을 지속적으로 마련해 나갈 것입니다.</p>
+              </div>
+              <div class="img_box">
+                  <div data-aos="fade-up" data-aos-duration="2000"><a href="#"><img src="/images/main/sec02-work02.png" alt="gall02" /></a></div>
+                    <div data-aos="fade-up" data-aos-duration="2000"><a href="#"><img src="/images/main/sec02-work04.png" alt="gall04" /></a></div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="sec03 inner mt-20">
       <iframe class="iframe"
           style="width: 100%; height: 670px"
@@ -139,14 +168,21 @@
 
 <script setup>
 
-import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute } from 'vue-router'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { onMounted } from 'vue'
 
-const router = useRouter();
+const router = useRouter()
 const route = useRoute()
 
 const goToGuide = () => {
   router.push('/guide/recruit')
 }
+
+onMounted(() => {
+  AOS.init()
+})
 
 </script>
 
@@ -162,7 +198,6 @@ const goToGuide = () => {
   line-height: 120%;
   font-weight: 600;
 }
-
 
 .title-point {
   text-align: center;
@@ -190,18 +225,22 @@ const goToGuide = () => {
   display: none;
 }
 .sec01 {
-  max-width: 1440px;
-  margin: 0 auto;
+
 }
 .sec01 .wrap01 {
+  background-color: #b3b01c;
+  /* padding-right: 20px; */
+  margin: 0 auto;
+  max-width: 1440px;
+  padding-left: 20px;
+}
+
+.sec01 .wrap01 .container {
   display: flex;
-  /* align-items: center; */
   align-items: flex-end;
   justify-content: space-between;
-  max-width: 1300px; /* wrap01의 너비는 1248px로 유지 */
-  margin-left: auto; /* 왼쪽 여백을 자동으로 채워 오른쪽으로 정렬 */
-  /* background-color: #b3b01c; */
-  padding-left: 20px;
+  max-width: 1300px;
+  margin-left: auto; 
 }
 .sec01 .contest-info {
   text-align: center;
@@ -319,8 +358,6 @@ const goToGuide = () => {
 }
 
 .sec01 .wrap02 {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
   padding: 40px 20px 20px;
   background-image: url('/images/main/sec01-bg.png');
   background-repeat: no-repeat;   
@@ -336,7 +373,11 @@ const goToGuide = () => {
   /* flex-wrap: wrap; */
   justify-content: space-between;
   padding: 0 20px;
+  width: 100%;
+  max-width: 1248px;
+  margin: 0 auto;
 }
+
 
 .sec01 .wrap02 .info-item {
   display: flex;
@@ -391,6 +432,9 @@ const goToGuide = () => {
   gap: 16px; /* 요소 사이 간격 */
   align-items: center;
   /* align-items: flex-end; */
+  width: 100%;
+  max-width: 1248px;
+  margin: 0 auto;
 }
 
 .sec01 .wrap02 .grid01 {
@@ -409,6 +453,70 @@ const goToGuide = () => {
   justify-content: center;
 }
 
+
+
+
+
+.sec02 {
+  /* background-color: yellow; */
+  margin: 0 auto;
+  padding: 60px 20px 20px;
+}
+
+.sec02 #gall_box_area,
+.sec02 .gall_box_area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin: 0 auto;
+  padding: 55px 0 20px;
+}
+
+.sec02 .left_box, .right_box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* gap: 50px; */
+}
+
+.sec02 .tit_box, .txt_box {
+  text-align: left;
+}
+
+.sec02 .tit_box .s_tit {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.sec02 .img_box {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.sec02 .img_box img {
+  width: 100%;
+  max-height: 910px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.sec02 .txt_box .tit {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.sec02 .txt_box .txt {
+  font-size: 18px;
+  color: #5D5D5D;
+  margin-bottom: 30px;
+}
+
+.sec02 .txt.mobile {
+  display: none;
+}
 
 .sec03 {
   padding: 50px 20px;
@@ -500,7 +608,7 @@ const goToGuide = () => {
     margin: 20px auto 0;
   } */
 
-  .sec01 .wrap01 {
+  .sec01 .wrap01 .container {
     flex-direction: column-reverse;
     padding-left: 0;
     gap: 40px;
@@ -559,7 +667,13 @@ const goToGuide = () => {
     height: 150px;
     gap: 50px;
   }
-  
+  .sec02 .gall_box_area {
+    gap: 20px;
+  }
+  .sec02 .img_box {
+    gap: 20px;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -607,7 +721,7 @@ const goToGuide = () => {
     background-repeat: no-repeat;   
     background-size: cover;           
     background-position: center center; 
-    margin-top: 80px;
+    margin-top: 50px;
     text-align: center;
   }
   .sec01 .wrap02 .info-wrapper {
@@ -643,6 +757,28 @@ const goToGuide = () => {
     grid-column: auto;
     margin-right: 0;
     margin-bottom: 16px;
+  }
+  .sec02 {
+    padding: 20px;
+  }
+  .sec02 #gall_box_area,
+  .sec02 .gall_box_area {
+    padding: 20px 0px !important;
+    display: block;
+  }
+  .sec02 .left_box, .right_box {
+    width: 100%;
+    gap: 20px;
+  }
+  .sec02 .img_box img {
+    width: 100%;
+    height: 250px;
+  }
+  .sec02 .txt.mobile {
+    display: block;
+  }
+  .sec02 .txt.pc {
+    display: none;
   }
 }
 @media (max-width: 600px) {

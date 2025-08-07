@@ -6,7 +6,7 @@
   font-weight: 400;
   font-style: normal;
 }
- 
+
 @font-face {
   font-family: 'GangwonEdu_OTFBoldA'; /* bold체 한가지만 사용가능 */
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
@@ -132,6 +132,15 @@ img, input, select, textarea, button, label {
 img, fieldset, abbr {
   border: 0;
 }
+
+[data-aos] {
+  visibility: hidden;
+}
+
+[data-aos].aos-animate {
+  visibility: visible;
+}
+
 /* 공통 버튼 스타일 */
 .btn-wrap {
   width: 100%;

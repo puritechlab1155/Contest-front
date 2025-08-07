@@ -42,17 +42,16 @@
                 </nuxt-link>
               </div>
             </div>
-
-            <!-- 버튼 -->
-            <button class="btn01 black pc" @click="goToApply">
-              <span>접수 바로가기</span>
-            </button>
           </nav>
           <div 
             class="submenu-box" 
             :class="{ show: isSubmenuVisible }"
           ></div>
         </div>
+          <!-- 버튼 -->
+          <button class="btn01 black pc" @click="goToApply">
+            <span>접수 바로가기</span>
+          </button>
       </div>
     </div>
 
@@ -368,7 +367,7 @@ onBeforeUnmount(() => {
 /* 서브메뉴 박스 기본 숨김 */
 .header .submenu-box {
   position: absolute;
-  top: 75px;
+  top: 70px;
   left: 0;
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
