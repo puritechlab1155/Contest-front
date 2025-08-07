@@ -130,73 +130,188 @@
       ></iframe>
     </section>
     <section class="sec04 inner mt-20">
-      <div class="section-title" style="font-weight: 400;">
+      <div class="section-title">
         수상자 혜택
       </div>
       <div class="wrap01">
         <div class="left">
-          <div class="text one">기사화 노출</div>
-          <div class="text two">언론 브랜딩</div>
+          <div class="text" data-aos="fade-up" data-aos-delay="1500" data-aos-duration="500">기사화 노출</div>
+          <img class="trophy" data-aos="fade-up" data-aos-delay="500" data-aos-duration="500" src="/images/main/sec04-trophy.png" alt="트로피 이미지">
         </div>
         <div class="right">
           <div class="section-sub-title">
             부문별 대상자 상금
           </div>
           <div class="prize-wrap">
-            <div class="prize-box">
-              <div class="prize-age">대학부 (1명)</div>
-              <div class="prize-money">₩1,000,000</div>
-            </div>
-            <div class="prize-box">
-              <div class="prize-age">고등부 (1명)</div>
-              <div class="prize-money">₩500,000</div>
-            </div>
-            <div class="prize-box">
-              <div class="prize-age">중등부 (1명)</div>
-              <div class="prize-money">₩500,000</div>
-            </div>
-            <div class="prize-box">
-              <div class="prize-age">초등부 (1명)</div>
-              <div class="prize-money">문화상품권</div>
+            <div class="prize-box" v-for="(prize, index) in prizes" :key="index">
+              <div class="prize-age">{{ prize.age }}</div>
+              <div class="prize-money">
+                <template v-if="typeof prize.money === 'number'">
+                  ₩{{ counts[index].toLocaleString() }}
+                </template>
+                <template v-else>
+                  <span>
+                    {{ displayedText[index] }}
+                  </span>
+                </template>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+
+    <section class="sec05 inner mt-20">
+      <div class="notice-section">
+        <div class="section-header">
+          <h2 class="section-title">공지사항</h2>
+          <NuxtLink to="/notice" class="more-link">
+            more +
+          </NuxtLink>
+        </div>
+        <ul class="notice-list">
+          <li
+            v-for="notice in noticeList"
+            :key="notice.id"
+            class="notice-item"
+          >
+            <div class="notice-info">
+              <span
+                class="label"
+                :class="{
+                  important: notice.label === 'important',
+                  normal: notice.label === 'normal'
+                }"
+              >
+              <span class="label-prefix">
+                {{ notice.label === 'important' ? '중요' : '일반' }}
+              </span>
+              <span class="label-suffix">공지</span>
+              </span>
+              <NuxtLink :to="`/notice/${notice.id}`" class="notice-title">
+                {{ notice.title }}
+              </NuxtLink>
+            </div>
+            <span class="date">{{ notice.created_at }}</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="sec06 inner mt-20">
+      <div class="section-title">
+        후원
+      </div>
+      <Carousel/>
+    </section>
+
+
+
   </main>
 </template>
 
 <script setup>
-
-import { useRouter, useRoute } from 'vue-router'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { onMounted } from 'vue'
 
-const router = useRouter()
-const route = useRoute()
+const noticeList = ref([
+  { id: 1, title: '중요공지 입니다. 공지 제목이 들어갈 예정입니다.', created_at: '2025. 07. 07', label: 'important' },
+  { id: 2, title: '중요공지 입니다. 공지 제목이 들어갈 예정입니다.', created_at: '2025. 07. 07', label: 'important' },
+  { id: 3, title: '일반공지 입니다. 공지 제목이 들어갈 예정입니다.', created_at: '2025. 07. 07', label: 'normal' },
+  { id: 4, title: '일반공지 입니다. 공지 제목이 들어갈 예정입니다.', created_at: '2025. 07. 07', label: 'normal' }
+])
 
-const goToGuide = () => {
-  router.push('/guide/recruit')
+const prizes = ref([
+  { age: '대학부 (1명)', money: 1000000 },
+  { age: '고등부 (1명)', money: 500000 },
+  { age: '중등부 (1명)', money: 500000 },
+  { 
+    age: '초등부 (1명)', 
+    money: '문화상품권',
+    // 문자열이면 AOS 속성 제거해서 페이드업 안되게
+    // aos: { name: 'fade-up', duration: '500' }  <-- 이 부분 제거
+  },
+])
+
+const counts = ref(prizes.value.map(p => (typeof p.money === 'number' ? 0 : p.money)))
+const typingTexts = ref(prizes.value.map(p => (typeof p.money === 'string' ? p.money.split('') : [])))
+const displayedText = ref(prizes.value.map(() => ''))
+
+function animateCount(target, idx) {
+  const duration = 3000
+  const frameRate = 30
+  const totalFrames = Math.round(duration / (1000 / frameRate))
+  let frame = 0
+
+  const counter = setInterval(() => {
+    frame++
+    counts.value[idx] = Math.floor(target * (frame / totalFrames))
+    if (frame >= totalFrames) {
+      counts.value[idx] = target
+      clearInterval(counter)
+    }
+  }, 1000 / frameRate)
 }
 
-onMounted(() => {
-  AOS.init()
-})
+function typeText(idx) {
+  let i = 0
+  const chars = typingTexts.value[idx]
+  
+  setTimeout(() => {  
+    const interval = setInterval(() => {
+      if (i < chars.length) {
+        displayedText.value[idx] += chars[i]
+        i++
+      } else {
+        clearInterval(interval)
+      }
+    }, 100)
+  }, 500)  
+}
 
+import { nextTick } from 'vue'
+
+onMounted(async () => {
+  AOS.init()
+
+  await nextTick()
+  AOS.refresh()
+
+  const target = document.querySelector('.sec04')
+  if (!target) return
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        prizes.value.forEach((prize, index) => {
+          if (typeof prize.money === 'number') {
+            counts.value[index] = 0      // 숫자 카운트 초기화
+            animateCount(prize.money, index) // 숫자 카운트 다시 실행
+          } else if (typeof prize.money === 'string') {
+            displayedText.value[index] = '' // 타이핑 텍스트 초기화
+            typeText(index)                  // 타이핑 재실행
+          }
+        })
+        AOS.refresh()
+      }
+    })
+  }, {
+    threshold: 0.1,
+  })
+
+  observer.observe(target)
+})
 </script>
 
 <style scoped>
 
 .section-title {
   font-size: 46px;
-  font-weight: 600;
-  line-height: 120%;
+  /* font-weight: 600; */
 }
 .section-sub-title {
   font-size: 30px;
-  line-height: 120%;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 .title-point {
@@ -469,7 +584,7 @@ onMounted(() => {
   flex-wrap: wrap;
   gap: 50px;
   margin: 0 auto;
-  padding: 55px 0 20px;
+  padding: 55px 0 0;
 }
 
 .sec02 .left_box, .right_box {
@@ -516,6 +631,7 @@ onMounted(() => {
 
 .sec02 .txt.mobile {
   display: none;
+  color: #5D5D5D;
 }
 
 .sec03 {
@@ -528,48 +644,43 @@ onMounted(() => {
 
 .sec04 {
   padding: 50px 20px 0;
-  height: 625px;
 }
 .sec04 .wrap01 {
   display: flex;
   gap: 20px;
   margin-top: 80px;
+  /* background-color: aquamarine; */
 }
 .sec04 .left {
   flex: 5;
-  background-image: url('../img/main-sec04-mic.png');
+  background-image: url('/images/main/sec04-bg.png');
   background-repeat: no-repeat;
   background-position: center bottom;
-  background-size: 400px auto;
+  background-size: 110% 400px;
   position: relative;
-}
-.sec04 .left .text.one{
-  background-image: url('../img/main-sec04-paint01.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  padding: 40px;
-  width: 250px;
-  text-align: center;
-  margin: 0 auto;
-}
-.sec04 .left .text.two{
-  background-image: url('../img/main-sec04-paint02.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  padding: 50px;
-  width: 250px;
-  text-align: center;
+  /* background-color: antiquewhite; */
 }
 .sec04 .left .text{
-  font-size: 30px;
-  font-weight: 600;
+  position: absolute;
+  font-size: clamp(26px, 5vw, 50px);
+  /* font-weight: 600; */
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 5%);
+  color: #FF5E00;
 }
+.sec04 .left .trophy {
+  width: auto;
+  height: 50%;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+}
+
 .sec04 .right {
   flex: 5;
-  margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 .sec04 .prize-wrap {
   display: grid;
@@ -588,8 +699,125 @@ onMounted(() => {
   font-size: 24px;
   margin-top: 15px;
 }
+.prize-money span[data-aos] {
+  will-change: transform, opacity;
+  display: inline-block;
+}
 
 
+.sec05 {
+  padding: 50px 20px;
+}
+
+.sec05 .notice-section {
+  width: 100%;
+}
+
+.sec05 .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.sec05 .more-link {
+  font-size: 18px;
+  /* display: flex;
+  align-items: center; */
+  width: auto;
+}
+.sec05 .more-icon {
+  width: 24px;
+  margin-left: 10px;
+}
+.sec05 .more-link:hover {
+  /* text-decoration: underline; */
+  color: #F4313F;
+}
+.sec05 .notice-list {
+  list-style: none;
+  padding: 30px 50px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+}
+.sec05 .notice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+.sec05 .notice-item:last-child {
+  border-bottom: none;
+}
+.sec05 .notice-info {
+  display: flex;
+  align-items: center;
+  width: 100%; 
+  overflow: hidden; 
+}
+.sec05 .label.important {
+  background-color: #F4313F;
+  border: 1px solid #F4313F;
+}
+.sec05 .label.important .label-prefix, 
+.sec05 .label.important .label-suffix {
+  color: #EFEFEF;
+}
+.sec05 .label {
+  display: inline-block;
+  font-size: 18px;
+  /* font-weight: bold; */
+  padding: 5px 15px;
+  margin-right: 20px;
+  flex-shrink: 0;
+  color: #222222;
+  background-color: #FEFEFE;
+  border: 1px solid #D9D9D9;
+}
+.sec05 .notice-title {
+  font-weight: 500;
+  white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 설정 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 ...으로 표시 */
+  flex-grow: 1; /* 제목이 가능한 공간을 모두 차지하도록 설정 */
+  font-size: 18px;
+}
+.sec05 .notice-title:hover {
+  text-decoration: underline;
+}
+.sec05 .date {
+  color: #999;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-left: 20px; 
+}
+
+.sec05 .label-suffix {
+  display: inline;
+}
+
+.sec06 {
+  padding: 50px 20px;
+}
+/* .sponsor-carousel {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.sponsor-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.sponsor-item {
+  flex: 0 0 33.33%;
+  text-align: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 20px;
+}
+.sponsor-item img {
+  max-width: 80%;
+  height: auto;
+} */
 
 
 @media (max-width: 1240px) {
@@ -607,7 +835,9 @@ onMounted(() => {
     width: 60%;
     margin: 20px auto 0;
   } */
-
+  .sec01 .wrap01 {
+    padding-left: 0;
+  }
   .sec01 .wrap01 .container {
     flex-direction: column-reverse;
     padding-left: 0;
@@ -643,7 +873,6 @@ onMounted(() => {
   }
   .sec01 .wrap02 .info-item.tablet {
     display: block;
-    /* background-color: aquamarine; */
     width: 100%;
     grid-column: span 2;
     justify-content: flex-start;
@@ -656,12 +885,11 @@ onMounted(() => {
   }
   .sec01 .wrap02 .info-wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2개씩 */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 20px;
     padding: 0 20px;
     justify-items: center;
     align-items: flex-start;
-    /* background-color: aqua; */
   }
   .sec01 .wrap02 .info-item {
     height: 150px;
@@ -677,6 +905,17 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  .mt-20 {
+    margin-top: 0;
+  }
+  .section-title {
+    font-size: 24px;
+    /* font-weight: 600; */
+  }
+  .section-sub-title {
+    font-size: 20px;
+    /* font-weight: 600; */
+  }
   .sec01 .wrap01 {
     gap: 20px;
   }
@@ -763,7 +1002,7 @@ onMounted(() => {
   }
   .sec02 #gall_box_area,
   .sec02 .gall_box_area {
-    padding: 20px 0px !important;
+    padding: 0px;
     display: block;
   }
   .sec02 .left_box, .right_box {
@@ -776,9 +1015,54 @@ onMounted(() => {
   }
   .sec02 .txt.mobile {
     display: block;
+    text-align: center;
   }
   .sec02 .txt.pc {
     display: none;
+  }
+  .sec03 {
+    padding: 20px;
+  }
+  .sec03 .iframe {
+    margin-top: 0;
+    height: 365px;
+  }
+  .sec04 {
+    padding: 20px;
+  }
+  .sec04 .wrap01 {
+    flex-direction: column;
+    height: 640px;
+  }
+  .sec04 .wrap01 .prize-wrap {
+    gap: 20px;
+  }
+  .sec04 .right {
+    margin-bottom: 0;
+  }
+  .sec04 .left .text{
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  .sec04 .left .trophy {
+    height: 60%;
+  }
+  .sec05 {
+    padding: 20px;
+  }
+  .sec05 .label-suffix {
+    display: none;
+  }
+  .sec05 .notice-list {
+    padding: 20px;
+  }
+  .sec05 .label {
+    margin-right: 10px;
+    padding: 5px 10px;
+  }
+  .sec06 {
+    padding: 20px;
   }
 }
 @media (max-width: 600px) {
@@ -807,6 +1091,14 @@ onMounted(() => {
   }
   .sec01 .image-wrapper .masked-image.left {
     height: 360px;
+  }
+  .sec04 .left {
+    flex: 5;
+    background-image: url('/images/main/sec04-bg-mob.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 90% auto;
+    position: relative;
   }
 }
 
