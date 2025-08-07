@@ -228,7 +228,7 @@ onMounted(() => {
 
 }
 .sec01 .wrap01 {
-  background-color: #b3b01c;
+  /* background-color: #b3b01c; */
   /* padding-right: 20px; */
   margin: 0 auto;
   max-width: 1440px;
