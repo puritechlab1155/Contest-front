@@ -265,8 +265,8 @@ function typeText(idx) {
       } else {
         clearInterval(interval)
       }
-    }, 100)
-  }, 500)  
+    }, 500)
+  }, 1000)  
 }
 
 import { nextTick } from 'vue'
